@@ -65,3 +65,4 @@ elif listcount > 1 and negCheck[0] != "not":
 else:
     print("ERROR!")
 
+41aba1d6582a8b
