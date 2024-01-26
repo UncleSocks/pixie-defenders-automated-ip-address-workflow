@@ -1,30 +1,4 @@
-                               .::+xXx:.                                                                                                  
-                             .:xxxx+X$+..                                                                                                 
-                             .++;;+xXX+..                                                                                                 
-                           .;;+;;;;;;+;..                                                                                                 
-                         .:xx+++++++++;..                                                                                                 
-                         .+xX+x+++++++:.                                                                                                  
-                         .....++++++++;.                                                                                                  
-                             .+;;++;..;:.                                                                                                 
-                             :++++;;;::..                                                                                                 
-                            :++++++:::::.          ;$$$$$$$$&&&&&&X:.  .x$&&&&+  ;$$&&&&&&&$:+$&&&&&&+  :$$&&&$:                          
-                          ..;;;;;;++Xx;:::.        +$&&&&&&&&&&&&&&&x.+&&&&&&$. .&&&&&&&&&&x;&&&&&&&X..X&&&&&&x                           
-                         .;+;;;;;;:::+x;;::.        :&&&&&$: .x&&&&&$ .+x+:..     .X&&&&&&&x$&&X:     .:+x+:..                            
-                        .+++;;;;;;;:::;;;.:..      .$&&&&&x. .X&&&&&;.xX$&&&$.     :&&&&&&&&&X:.      ;X$$&&&X    .x$&&&&&&x.             
-                        :+++;;;;;::::;+xx.;;.     .+&&&&&&...$&&&&&+x&&&&&&&;       ;&&&&&&&$.       &&&&&&&&. .;&&&&x.:$&&&X.            
-                        :++;;;;;;;;+;;+x+.:+;..   :$&&&&&&&&&&&&&X:  x&&&&&x.       .$&&&&&&&X.       $&&&&&+..X&&&&X;;x&&&&$.            
-                        ++x++++++xx;;+xX+:;;++;...x&&&&&&$&&&x+:.   :&&&&&$:      .x&&&&&&&&&&x      +&&&&&X. $&&&&&&&&&&&&$;.            
-                       :++++++++$XxxxXX+.   .:;;:;&&&&&$.          .$&&&&&x      X&&&x:$&&&&&&&;    :&&&&&&; +&&&&&+                      
-                      .;;+X;;+++xXX$$$X;.     ..+;;+$&&+.         .x&&&&&&.  .;X&&&X. .x&&&&&&&$:  :$&&&&&X  +&&&&&&+;;;X&;               
-                      :;+x;. .;+;+xxXxxx.    .;&&&x;;;x$+        x&&&&&&&&$X&&&&&&&X..$&&&&&&&&&&xX&&&&&&&&+ .X&&&&&&&&&$;.               
-                     .;+x:.   ..+;;;;x+++    ..+X&&X+++;.        :x$&&&$+:.;X&&&$x:...;X&&&&&$x;..;X&&&&X;..  ..+$&&X;:..                 
-                     .++:        ;+;;xxx+           ....                                                                                  
-                     .++         .:+;+xx;                                                                                                 
-                     .+;          .;+;;+;.                                                                                                
-                     .+:           .;;:;;:.                                                                                               
-                     :;.             ::.:;:..                                                                                             
-                     ;;.                 :+;;.                                                                                            
-                   .:;:.                 ..:;:.     
+![pixie](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/17be88a4-3fbe-4367-86b7-32baea1f2c43)
 
 # Pixie: Automated IPInfo Address Lookup
 A Python 3 script, named after my Mini Pinscher, that automates IP address lookup on IPInfo and displays the output in IPADDRESS[COUNTRY:ORGANIZATION] format. The script accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
