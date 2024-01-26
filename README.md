@@ -1,4 +1,4 @@
-# ipinfo-automated-lookup
+# Pixie: Automated IPInfo Address Lookup
 A Python 3 script that automates IP address lookup on IPInfo and displays the output in IPADDRESS[COUNTRY:ORGANIZATION] format. The script accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
 
 **NOTE:** You will need to sign up for IPInfo (FREE) to get your access token.
