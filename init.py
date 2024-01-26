@@ -1,6 +1,7 @@
 import ipinfo
 import maskpass
 from argparse import ArgumentParser
+from ip_parser import public_address_parser
 from strings import pixie_logo
 
 def arguments():
@@ -20,7 +21,8 @@ def ip_wordlist(wordlist_argument):
     with open(wordlist_argument.ip_list) as ip_wordlist:
         for ip in ip_wordlist:
             ip = ip.strip()
-            ip_list.append(ip)
+            if public_address_parser(ip) == False:
+                ip_list.append(ip)
 
     return ip_list
 
@@ -33,9 +35,7 @@ def ip_init():
         print("Connecting to IPInfo...")
         handler = ipinfo.getHandler(access_token)
     except:
-        print("ERROR-01: Cannot connect to IPInfo, make sure that you are connecting to the Internet and your access token is correct.")
-    else:
-        print("Success!")
+        print("ERROR-01: Cannot connect to IPInfo, make sure that you are connecting to the Internet.")
 
     return handler
 

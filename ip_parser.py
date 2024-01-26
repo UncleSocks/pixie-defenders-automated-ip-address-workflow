@@ -1,4 +1,6 @@
 import ipinfo
+import re
+
 
 def organization_parser(handler, organization_keyword, ip_list):
 
@@ -50,3 +52,11 @@ def organization_parser(handler, organization_keyword, ip_list):
 
     output_dict = {'Keyword List': organization_keyword_list, 'Keyword Counter':organization_keyword_counter, 'Output List':output_list}
     return output_dict
+
+
+def public_address_parser(ip_address):
+    match = re.compile(r'((^127\.)|(^192\.168\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^::1$)|(^[fF][cCdD])/)|([a-zA-Z])').match(ip_address)
+    if match:
+        return True
+    else:
+        return False
