@@ -1,5 +1,5 @@
 from collections import Counter
-from ip_parser import organization_parser
+from parsers import organization_parser
 from init import arguments, ip_wordlist, ip_init, organization_keyword
 import re
 

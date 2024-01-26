@@ -1,7 +1,7 @@
 import ipinfo
 import maskpass
 from argparse import ArgumentParser
-from ip_parser import public_address_parser
+from parsers import public_address_parser
 from strings import pixie_logo
 
 def arguments():
