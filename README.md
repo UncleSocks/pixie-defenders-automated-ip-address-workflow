@@ -7,9 +7,9 @@ As a SOC Analyst, we are often task to look up the hundreds of IP addresses, pro
 
 ## Usage
 
-Run the `iplooker.py` Python3 script on your machine; use the `-i` or `--ipList` option and specify the file location of the text file containing the list of IP addresses you want to look up. Please note that the text file must be in a format that each IP address takes up one line, and no non-IP address content must be present. A samplelist.txt is available in the repository for your reference.
+Run the `pixie.py` Python3 script on your machine; use the `-i` or `--ip_list` option and specify the file location of the text file containing the list of IP addresses you want to look up. Please note that the text file must be in a format that each IP address takes up one line, and no non-IP address content must be present. A samplelist.txt is available in the repository for your reference.
 
-**Example:** `iplooker.py -i C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
+**Example:** `pixie.py -i C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
 
 
 When running the command, the script will ask for your IPInfo access token and your desired IP address organization keyword/s for searching. 
