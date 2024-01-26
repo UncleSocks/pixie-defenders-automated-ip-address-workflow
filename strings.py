@@ -30,8 +30,10 @@ def pixie_logo():
 
     In loving memory of my dog, Pixie.
 
+
 Created by Tyrone Kevin Ilisan (@unclesocks)
 2024.2.0
+
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
 [+] Outputs the results in IPADDRESS[COUNTRY:ORG] format.
