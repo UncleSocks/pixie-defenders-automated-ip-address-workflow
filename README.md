@@ -11,7 +11,6 @@ Run the `iplooker.py` Python3 script on your machine; use the `-i` or `--ipList`
 
 **Example:** `iplooker.py -i C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
 
-![image](https://github.com/UncleSocks/ipinfo-automated-lookup/assets/79778613/ff56eb5c-4da2-4b26-a869-ce46395aec3f)
 
 When running the command, the script will ask for your IPInfo access token and your desired IP address organization keyword/s for searching. 
 
@@ -19,15 +18,12 @@ When running the command, the script will ask for your IPInfo access token and y
 
 Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT GOOGLE). The script will look up each IP address in your text file list using the IPInfo API and will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
 
-![image](https://github.com/UncleSocks/ipinfo-automated-lookup/assets/79778613/e68508ad-f521-4a7d-ba3c-f8a5fb8a52f9)
 
 If you want to negate your search, prepend a `NOT` keyword on your search (e.g., NOT AMAZON MICROSOFT GOOGLE). Similarly, the script will still look up each IP address inside the list using the IPInfo API but will only output the IP address that does not belong to the organization/s in your search.
 
-![image](https://github.com/UncleSocks/ipinfo-automated-lookup/assets/79778613/25890c0b-0bc7-43e4-a0fd-9e0b29f9251c)
 
 If you want to simply look up all IP addresses in your list, use the `-` key.
 
-![image](https://github.com/UncleSocks/ipinfo-automated-lookup/assets/79778613/9278f3eb-c5c7-4ea4-b84e-8830a72286e5)
 
 ## Output
 
