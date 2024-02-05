@@ -5,7 +5,8 @@ from init import arguments, ip_wordlist, ip_init, organization_keyword
 
 output = organization_parser(ip_init(), organization_keyword(), ip_wordlist(arguments()))
 
-print("\nProcessing output...")
+print("\n\n                                          OUTPUT")
+print("---------------------------------------------------------------------------------------------\n")
 
 if output['Keyword Counter'] == 1:
 
@@ -27,3 +28,5 @@ elif output['Keyword Counter'] > 1 and output['Keyword List'][0] != "not":
 
 else:
     print("ERROR! Use the '-h' for information on how to use the tool.")
+
+print("\n=============================================================================================")
