@@ -1,4 +1,4 @@
-![Pixie](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/4278bce8-ae9a-4c3c-b00b-f028964ccb2d)
+![Pixie](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/1a47e09c-6643-4696-8022-a74b9c04e503)
 
 # Pixie: Automated IPInfo Address Lookup
 ![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release%20-%202024.2.0%20-%20orange)
@@ -97,11 +97,13 @@ Performing keyword parsing...
 
 The script will display a list of output in IPADDRESS[COUNTRY:ORGANIZAITON] format.
 ```
+Enter organization keyword (e.g., Microsoft): AMAZON MICROSOFT
+Processing wordlist...
+Performing keyword parsing...
+
 Processing output...
-150.171.10.2[US:MICROSOFT CORPORATION]
-13.107.236.5[US:MICROSOFT CORPORATION]
-150.171.10.32[US:MICROSOFT CORPORATION]
-204.14.183.1[US:MICROSOFT CORPORATION]
-205.251.195.166[US:AMAZON.COM, INC.]
-205.251.197.204[US:AMAZON.COM, INC.]
+52.68.1.90[JP:AMAZON.COM, INC.]
+204.79.197.215[US:MICROSOFT CORPORATION]
+52.68.0.1[JP:AMAZON.COM, INC.]
+13.107.6.153[US:MICROSOFT CORPORATION]
 ```
