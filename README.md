@@ -1,4 +1,4 @@
-![Pixie](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/7852576e-e914-4a56-aba3-b3613d0d0919)
+![Pixie](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/1a47e09c-6643-4696-8022-a74b9c04e503)
 
 # Pixie: Automated IPInfo Address Lookup
 ![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release%20-%202024.2.0%20-%20orange)
