@@ -1,4 +1,4 @@
-![pixie](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/17be88a4-3fbe-4367-86b7-32baea1f2c43)
+![Pixie](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/17b3c3e9-2135-429b-a54a-7bf7a6d79007)
 
 # Pixie: Automated IPInfo Address Lookup
 A Python 3 script, named after my Mini Pinscher, that automates IP address lookup on IPInfo and displays the output in IPADDRESS[COUNTRY:ORGANIZATION] format. The script accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
