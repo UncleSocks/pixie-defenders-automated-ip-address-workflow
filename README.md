@@ -53,6 +53,7 @@ Created by Tyrone Kevin Ilisan (@unclesocks)
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
 [+] Outputs the results in IPADDRESS[COUNTRY:ORG] format.
+[-] Known Issue: Bogon and missing-ASN-addresses will result in an error.
 
 Note: The tool requires the IPInfo token to connection to IPInfo.
 
@@ -97,13 +98,20 @@ Performing keyword parsing...
 
 The script will display a list of output in IPADDRESS[COUNTRY:ORGANIZAITON] format.
 ```
-Enter organization keyword (e.g., Microsoft): AMAZON MICROSOFT
-Processing wordlist...
-Performing keyword parsing...
+                                          OUTPUT
+---------------------------------------------------------------------------------------------
 
-Processing output...
-52.68.1.90[JP:AMAZON.COM, INC.]
-204.79.197.215[US:MICROSOFT CORPORATION]
-52.68.0.1[JP:AMAZON.COM, INC.]
+136.226.170.4[DE:ZSCALER, INC.]
+8.8.4.4[US:GOOGLE LLC]
+147.161.132.5[NL:ZSCALER SWITZERLAND GMBH]
 13.107.6.153[US:MICROSOFT CORPORATION]
+165.225.74.32[DE:ZSCALER SWITZERLAND GMBH]
+165.225.72.20[DE:ZSCALER SWITZERLAND GMBH]
+204.79.197.215[US:MICROSOFT CORPORATION]
+136.226.170.25[DE:ZSCALER, INC.]
+52.68.0.1[JP:AMAZON.COM, INC.]
+52.68.1.90[JP:AMAZON.COM, INC.]
+8.8.8.8[US:GOOGLE LLC]
+
+=============================================================================================
 ```
