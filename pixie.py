@@ -5,7 +5,7 @@ from init import arguments, ip_wordlist, ip_init, organization_keyword
 
 output = organization_parser(ip_init(), organization_keyword(), ip_wordlist(arguments()))
 
-print("\n\n                                          OUTPUT")
+print("                                      OUTPUT")
 print("---------------------------------------------------------------------------------------------\n")
 
 if output['Keyword Counter'] == 1:

@@ -37,7 +37,6 @@ Created by Tyrone Kevin Ilisan (@unclesocks)
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
 [+] Outputs the results in IPADDRESS[COUNTRY:ORG] format.
-[-] Known Issue: Bogon and missing-ASN-addresses will result in an error.
 
 Note: The tool requires the IPInfo token to connection to IPInfo.
    

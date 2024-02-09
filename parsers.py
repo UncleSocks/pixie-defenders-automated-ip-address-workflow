@@ -14,7 +14,18 @@ def organization_parser(handler, organization_keyword, ip_list):
 
         for ip in ip_list:
             ip_info = handler.getDetails(ip)
-            ip_output = str(ip_info.ip + "[" + ip_info.country + ":" + ip_info.org.split(' ',1)[1].upper() + "]")
+
+            try:
+                country = ip_info.country
+            except:
+                country = "NONE"
+
+            try:
+                organization = ip_info.org.split(' ',1)[1].upper()
+            except:
+                organization = "NONE"
+
+            ip_output = str(ip_info.ip + "[" + country + ":" + organization + "]")
             output_list.append(ip_output)
         
         organization_keyword_counter += 1
@@ -27,8 +38,18 @@ def organization_parser(handler, organization_keyword, ip_list):
                 ip_info = handler.getDetails(ip)
                 ip_organization = str(ip_info.org.lower())
 
+                try:
+                    country = ip_info.country
+                except:
+                    country = "NONE"  
+
+                try:
+                    organization = ip_info.org.split(' ',1)[1].upper()
+                except:
+                    organization = "NONE"                    
+
                 if keyword not in ip_organization:
-                    ip_output = str(ip_info.ip + "[" + ip_info.country + ":" + ip_info.org.split(' ',1)[1].upper() + "]")
+                    ip_output = str(ip_info.ip + "[" + country + ":" + organization + "]")
                     output_list.append(ip_output)
             
             organization_keyword_counter += 1
@@ -41,8 +62,18 @@ def organization_parser(handler, organization_keyword, ip_list):
                 ip_info = handler.getDetails(ip)
                 ip_organization = str(ip_info.org.lower())
 
+                try:
+                    country = ip_info.country
+                except:
+                    country = "NONE"
+
+                try:
+                    organization = ip_info.org.split(' ',1)[1].upper()
+                except:
+                    organization = "NONE"  
+
                 if keyword in ip_organization:
-                    ip_output = str(ip_info.ip + "[" + ip_info.country + ":" + ip_info.org.split(' ',1)[1].upper() + "]")
+                    ip_output = str(ip_info.ip + "[" + country + ":" + organization + "]")
                     output_list.append(ip_output)
             
             organization_keyword_counter += 1
