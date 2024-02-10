@@ -82,8 +82,7 @@ If you want to negate your search, prepend a `NOT` keyword on your search (e.g.,
 ```
 Enter organization keyword (e.g., Microsoft): NOT AMAZON MICROSOFT
 Processing wordlist...
-Per
-forming keyword parsing...
+Performing keyword parsing...
 ```
 
 ### Lookup All IP Address In The Wordlist
@@ -93,6 +92,14 @@ Enter organization keyword (e.g., Microsoft): -
 Processing wordlist...
 Performing keyword parsing...
 ```
+
+### Automated Blacklist Check
+Pixie now features an automated blacklist check against the Cisco Talos Intelligence IP Blacklist:
+```
+https://www.talosintelligence.com/documents/ip-blacklist
+```
+The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist matches an address in the blacklist, it will be displayed in the BLACKLISTED IPs section in the output.
+
 
 ## Output
 
