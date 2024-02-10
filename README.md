@@ -7,7 +7,7 @@ A Python 3 script, named after my Mini Pinscher, that automates IP address looku
 
 **NOTE:** You will need to sign up for IPInfo (FREE) to get your access token.
 
-As a SOC Analyst, we are often tasked to look up the hundreds of IP addresses, provide their country of origin and organization, and verify if the user is connecting to suspicious or unsanctioned addresses. This tool aims to address the slow process of manually inputting hundreds of IP addresses into an OSINT lookup tool, such as IPInfo.
+The tool is aimed to assist analysts in parsing and processing large volumes of IP addresses that would otherwise be unmanageable. 
 
 ## Usage
 
