@@ -40,7 +40,7 @@ Created by Tyrone Kevin Ilisan (@unclesocks)
 [+] Checks if any of the IP addresses are present in the blacklist:
     https[://]www[.]talosintelligence[.]com/documents/ip-blacklist
 
-Note: The tool requires the IPInfo token to connection to IPInfo.
+Note: The tool requires the IPInfo token to connect to IPInfo.
 
 
 Github: https[://]github[.]com/UncleSocks/pixie-automated-defenders-ip-address-workflow
