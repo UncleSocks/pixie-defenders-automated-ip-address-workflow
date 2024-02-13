@@ -29,7 +29,7 @@ The tool is aimed to assist analysts in parsing and processing large volumes of 
 C:\Users\Pixie>pixie.py -i samplelist.txt
 
 =============================================================================================
-=============================================================================================                                                                                
+=============================================================================================
                      _____
                \/_  | Awo |    
               ..     -----                                                                
@@ -58,14 +58,16 @@ C:\Users\Pixie>pixie.py -i samplelist.txt
 Created by Tyrone Kevin Ilisan (@unclesocks)
 2024.3.0
 
-[+] Automatically queries the IP addresses in the wordlist or netstat on IPInfo.
+[+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
 [+] Outputs the results in IPADDRESS[COUNTRY:ORG:HOSTNAME] format.
-[+] Checks if any of the IP addresses are present in the blacklist.
+[+] Checks if any of the IP addresses are present in the blacklist:
+    https[://]www[.]talosintelligence[.]com/documents/ip-blacklist
 
 Note: The tool requires the IPInfo token to connection to IPInfo.
-Note: The blacklist is from Cisco Talos Intelligence:
-https[://]www[.]talosintelligence[.]com/documents/ip-blacklist
+
+
+Github: https[://]github[.]com/UncleSocks/pixie-automated-defenders-ip-address-workflow
    
 =============================================================================================
 
