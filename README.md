@@ -56,7 +56,7 @@ C:\Users\Pixie>pixie.py -i samplelist.txt
 
 
 Created by Tyrone Kevin Ilisan (@unclesocks)
-2024.3.0
+2024.3.5
 
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
