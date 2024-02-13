@@ -125,7 +125,7 @@ https://www.talosintelligence.com/documents/ip-blacklist
 ```
 The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist or netstat matches an address in the blacklist, it will be displayed in the **BLACKLISTED IPs** section in the output.
 
-However, if you have your own set of blacklisted IP addresses, you can use the `-i` option to run the processed IP addresses against your own blacklist file.
+However, if you have your own set of blacklisted IP addresses, you can use the `-i` option to run the processed IP addresses against your own blacklist file. A **sample_blacklist.txt** file is included in the repository for reference.
 
 
 ## Output
