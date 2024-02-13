@@ -25,7 +25,7 @@ def pixie_logo():
     :+:     :;;xx+  :X&&&&$:      .X&&&&&:;+$&&&: :$&&&&&&;:x&&&&&: X&&&&&$&&X       
     .+       .+;+; .X$&&&Xx:      +$&&&$x:X&&&$x. X$&&&$$x;+$&&&$+.  ;X&&$x;         
     :;        :;:;.                                                                  
-    ;:            ;;            Automated IP Address Workflow                                         
+    ;:            ;;       Mini Automated Defender's IP Address Workflow                                         
    .;:            .::         
 
     In loving memory of my dog, Pixie.

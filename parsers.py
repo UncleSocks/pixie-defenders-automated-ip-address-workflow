@@ -1,4 +1,5 @@
 import re
+import subprocess
 import urllib.request
 
 
@@ -114,13 +115,38 @@ def ip_blacklist():
 
     print("\nUpdating IP address blacklist... ")
 
-    blacklist_url = "https://snort-org-site.s3.amazonaws.com/production/document_files/files/000/028/652/original/ip-filter.blf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU7AK5ITMJQBJPARJ%2F20240210%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240210T121755Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=93bcc076536d07affb75fe58156d281d86a0b87cba30e4033241397a43c64c1c"
+    blacklist_url = "https://www.talosintelligence.com/documents/ip-blacklist"
 
     try:
         get_blacklist = urllib.request.urlopen(blacklist_url).read().decode('utf-8')
         parsed_blacklist = get_blacklist.strip().split("\n")
         print("IP address blacklist updated.\n")
     except:
-        print("Failed to update blacklist IP")
+        parsed_blacklist = []
+        print("Error-003: Failed to update blacklist IP")
 
     return parsed_blacklist
+
+
+def netstat():
+
+    print("Processing Netstat output.")
+
+    ns_output = subprocess.check_output('netstat -n').decode('ascii').splitlines()
+    ns_output_startline = ns_output[5:]
+
+    ns_foreign_address_parser = [output[2] for output in map(str.split, ns_output_startline)]
+    ns_address_list = []
+    seen_foreign_addresses = set()
+
+    for match in ns_foreign_address_parser:
+        foreign_address_and_port = match.split(":")
+        parsed_foreign_address = foreign_address_and_port[0]
+        
+        if public_address_parser(parsed_foreign_address) == False:
+
+            if parsed_foreign_address not in seen_foreign_addresses:
+                seen_foreign_addresses.add(parsed_foreign_address)
+                ns_address_list.append(parsed_foreign_address)
+
+    return ns_address_list
