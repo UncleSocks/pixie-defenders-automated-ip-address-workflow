@@ -1,13 +1,13 @@
-![Pixie](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/1a47e09c-6643-4696-8022-a74b9c04e503)
+![Logo](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/9c4bf089-0a69-4d81-8de5-9272af60c3fa)
 
-# Pixie: Automated IPInfo Address Lookup
-![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release%20-%202024.2.0%20-%20orange)
+# Pixie: Mini Automated Defender's IP Address Workflow
+![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.3.0-orange)
 
-A Python 3 script, named after my Mini Pinscher, that automates IP address lookup on IPInfo and displays the output in IPADDRESS[COUNTRY:ORGANIZATION] format. The script accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
+A Python 3 script, named after my Mini Pinscher, that automates IP address lookup on IPInfo and displays the output in IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME] format and automatically checks against a blacklist. The script accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
 
 **NOTE:** You will need to sign up for IPInfo (FREE) to get your access token.
 
-As a SOC Analyst, we are often task to look up the hundreds of IP addresses, provide their country of origin and organization, and verify if the user is connecting to suspicious or unsanctioned addresses. This tool aims to address the slow process of manually inputting hundreds of IP addresses into an OSINT lookup tool, such as IPInfo.
+The tool is aimed to assist analysts in parsing and processing large volumes of IP addresses that would otherwise be unmanageable. 
 
 ## Usage
 
@@ -21,42 +21,43 @@ Please note that the text file must be in a format that each IP address takes up
 C:\Users\Pixie>pixie.py -i samplelist.txt
 
 =============================================================================================
-=============================================================================================
+=============================================================================================                                                                                
                      _____
-               \/_  | Awo |
-              ..     -----
-           +++xX:  /
-          ;;;+XX;                                      ^^
-        ++++++++:                   ^^
-       :x++;++++.                                                 ^^
-          ;++;;::                                 ^^
-         .+++;:::              ^^
-        .;;;;++;::
-       ;+;;;;::;;;:.   ;&&&&&&&&&&&&+ ;&&&&&; x&&&&&&&&+&&&&&&.:&&&&&:
-      :++;;;:::;++:;    :&&&&x  $&&&&::&$;     :&&&&&&.&&$     :&$;
-      :+;;;;;+;;x+ +;.  X&&&&:  &&&&X:&&&&&:    ;&&&&&&$      :&&&&&:   X&&&&&&:
-      +++++xX++XX:  ;;:;&&&&$:$&&&&+.$&&&&+      +&&&&&X      $&&&&+ .$&&X  X&&$
-     :;X;;++XXXXx     :+;+&&&&&$X.  .$&&&$      +&&&&&&&;     $&&&$ ;&&&&&&&&&&+
-     ;+:   ;;+;++;    X&$+;+.       +&&&&:    x&&+.&&&&&&;   +&&&&: $&&&$
-    :+:     :;;xx+  :X&&&&$:      .X&&&&&:;+$&&&: :$&&&&&&;:x&&&&&: X&&&&&$&&X
-    .+       .+;+; .X$&&&Xx:      +$&&&$x:X&&&$x. X$&&&$$x;+$&&&$+.  ;X&&$x;
-    :;        :;:;.
-    ;:            ;;               Automated IP(Info) Lookup
-   .;:            .::
+               \/_  | Awo |    
+              ..     -----                                                                
+           +++xX:  /                                                                 
+          ;;;+XX;                                      ^^                                
+        ++++++++:                   ^^                                                
+       :x++;++++.                                                 ^^                   
+          ;++;;::                                 ^^                               
+         .+++;:::              ^^                                                      
+        .;;;;++;::                                                                   
+       ;+;;;;::;;;:.   ;&&&&&&&&&&&&+ ;&&&&&; x&&&&&&&&+&&&&&&.:&&&&&:               
+      :++;;;:::;++:;    :&&&&x  $&&&&::&$;     :&&&&&&.&&$     :&$;                  
+      :+;;;;;+;;x+ +;.  X&&&&:  &&&&X:&&&&&:    ;&&&&&&$      :&&&&&:   X&&&&&&:     
+      +++++xX++XX:  ;;:;&&&&$:$&&&&+.$&&&&+      +&&&&&X      $&&&&+ .$&&X  X&&$     
+     :;X;;++XXXXx     :+;+&&&&&$X.  .$&&&$      +&&&&&&&;     $&&&$ ;&&&&&&&&&&+     
+     ;+:   ;;+;++;    X&$+;+.       +&&&&:    x&&+.&&&&&&;   +&&&&: $&&&$            
+    :+:     :;;xx+  :X&&&&$:      .X&&&&&:;+$&&&: :$&&&&&&;:x&&&&&: X&&&&&$&&X       
+    .+       .+;+; .X$&&&Xx:      +$&&&$x:X&&&$x. X$&&&$$x;+$&&&$+.  ;X&&$x;         
+    :;        :;:;.                                                                  
+    ;:            ;;       Mini Automated Defender's IP Address Workflow                                         
+   .;:            .::         
 
     In loving memory of my dog, Pixie.
 
 
 Created by Tyrone Kevin Ilisan (@unclesocks)
-2024.2.0
+2024.3.0
 
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
-[+] Outputs the results in IPADDRESS[COUNTRY:ORG] format.
-[-] Known Issue: Bogon and missing-ASN-addresses will result in an error.
+[+] Outputs the results in IPADDRESS[COUNTRY:ORG:HOSTNAME] format.
+[+] Checks if any of the IP addresses are present in the blacklist.
 
+Note: The blacklist is from Cisco Talos Intelligence
 Note: The tool requires the IPInfo token to connection to IPInfo.
-
+   
 =============================================================================================
 
 Enter token: ***************
@@ -82,8 +83,7 @@ If you want to negate your search, prepend a `NOT` keyword on your search (e.g.,
 ```
 Enter organization keyword (e.g., Microsoft): NOT AMAZON MICROSOFT
 Processing wordlist...
-Per
-forming keyword parsing...
+Performing keyword parsing...
 ```
 
 ### Lookup All IP Address In The Wordlist
@@ -94,24 +94,51 @@ Processing wordlist...
 Performing keyword parsing...
 ```
 
+### Automated Blacklist Check
+Pixie now features an automated blacklist check against the Cisco Talos Intelligence IP Blacklist:
+```
+https://www.talosintelligence.com/documents/ip-blacklist
+```
+The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist matches an address in the blacklist, it will be displayed in the BLACKLISTED IPs section in the output.
+
+
 ## Output
 
-The script will display a list of output in IPADDRESS[COUNTRY:ORGANIZAITON] format.
+The script displays a two-section output: the parsed addressed then the matched blacklisted IP addresses.
 ```
+=============================================================================================
                                           OUTPUT
----------------------------------------------------------------------------------------------
+=============================================================================================
 
-136.226.170.4[DE:ZSCALER, INC.]
-8.8.4.4[US:GOOGLE LLC]
-147.161.132.5[NL:ZSCALER SWITZERLAND GMBH]
-13.107.6.153[US:MICROSOFT CORPORATION]
-165.225.74.32[DE:ZSCALER SWITZERLAND GMBH]
-165.225.72.20[DE:ZSCALER SWITZERLAND GMBH]
-204.79.197.215[US:MICROSOFT CORPORATION]
-136.226.170.25[DE:ZSCALER, INC.]
-52.68.0.1[JP:AMAZON.COM, INC.]
-52.68.1.90[JP:AMAZON.COM, INC.]
-8.8.8.8[US:GOOGLE LLC]
+37.187.59.174[FR:OVH SAS:174.ip-37-187-59.eu]
+95.160.47.124[PL:VECTRA S.A.:095160047124.rzeszow.vectranet.pl]
+150.162.157.117[BR:UNIVERSIDADE FEDERAL DE SANTA CATARINA:cca157-117.cca.ufsc.br]
+217.36.254.7[GB:BRITISH TELECOMMUNICATIONS PLC:host217-36-254-7.in-addr.btopenworld.com]
+110.121.97.125[CN:CHINA TIETONG TELECOMMUNICATIONS CORPORATION:NONE]
+78.165.166.162[TR:TTNET A.S.:78.165.166.162.dynamic.ttnet.com.tr]
+104.218.195.108[US:FRONTIER COMMUNICATIONS OF AMERICA, INC.:NONE]
+68.195.205.216[US:CABLEVISION SYSTEMS CORP.:ool-44c3cdd8.static.optonline.net]
+52.68.0.1[JP:AMAZON.COM, INC.:ec2-52-68-0-1.ap-northeast-1.compute.amazonaws.com]
+52.68.1.90[JP:AMAZON.COM, INC.:ec2-52-68-1-90.ap-northeast-1.compute.amazonaws.com]
+13.107.6.153[US:MICROSOFT CORPORATION:NONE]
+204.79.197.215[US:MICROSOFT CORPORATION:NONE]
+147.161.132.5[NL:ZSCALER SWITZERLAND GMBH:NONE]
+136.226.170.4[DE:ZSCALER, INC.:NONE]
 
 =============================================================================================
+                                     BLACKLISTED IPs
+=============================================================================================
+
+
+Updating IP address blacklist...
+IP address blacklist updated.
+
+131.253.18.12[US:NONE:NONE]
+131.253.18.11[US:NONE:NONE]
+46.149.184.5[UA:KALUSKA INFORMATSIYNA MEREZHA LLC:tun-46-149-184-5.kim.in.ua]
+46.211.241.39[UA:"KYIVSTAR" PJSC:46-211-241-39.mobile.kyivstar.net]
+109.196.187.208[UA:TELERADIOCOMPANY "CABLE TELEVISION MEREZHI PLUS" LTD:pppoe-187-208.alexandriya.net]
+178.159.36.185[RU:PRIVATE INTERNET HOSTING LTD:NONE]
+59.99.43.205[IN:NATIONAL INTERNET BACKBONE:NONE]
+163.172.154.105[FR:SCALEWAY S.A.S.:105-154-172-163.instances.scw.cloud]
 ```
