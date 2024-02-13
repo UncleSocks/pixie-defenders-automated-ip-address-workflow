@@ -24,13 +24,17 @@ Pixie uses the `ipinfo` library to connect and query IP address information to a
 
 `-n` or `--netstat`: Uses the `netstat -n` command to capture and parse the remote IP addresses communicating with the host machine. 
 
-**Note:** Only one argument can be specified at a time. If both arguments are included, Pixie returns an error.
+`-i` or `--ioc`: Specify the location of the text file containing the set of blacklisted IP addresses. If this option is not specified, Pixie defaults to using the Cisco Talos Intelligence blacklist.
+
+**Note:** Either the `-w` or `-n` must be specified but not both. Inclusion of none or both will result in an error.
 
 ## Usage
 
 **Wordlist Option Usage:** Run the `pixie.py -w <location_of_wordlist.txt>` command on the host machine.
 
 **Netstat Option Usage:** Run the `pixie.py -n` command to use Netstat as the wordlist.
+
+**Wordlist Option with Blacklist File:** Run the `pixie.py -w <location_of_wordlist.txt> -i <location_of_blacklist.txt>` if you want to use your own set of blacklisted IP addresses.
 
 **Example:** `pixie.py -w C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
 
@@ -114,12 +118,14 @@ Processing wordlist.
 Performing keyword parsing...
 ```
 
-### Automated Blacklist Check
+### Blacklist Check
 Pixie now features an automated blacklist check against the Cisco Talos Intelligence IP Blacklist:
 ```
 https://www.talosintelligence.com/documents/ip-blacklist
 ```
 The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist or netstat matches an address in the blacklist, it will be displayed in the **BLACKLISTED IPs** section in the output.
+
+However, if you have your own set of blacklisted IP addresses, you can use the `-i` option to run the processed IP addresses against your own blacklist file.
 
 
 ## Output
