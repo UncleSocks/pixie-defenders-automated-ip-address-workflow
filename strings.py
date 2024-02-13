@@ -44,7 +44,6 @@ Note: The tool requires the IPInfo token to connect to IPInfo.
 
 
 Github: https[://]github[.]com/UncleSocks/pixie-automated-defenders-ip-address-workflow
-   
 =============================================================================================
     """
 

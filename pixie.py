@@ -26,4 +26,4 @@ if __name__ == "__main__":
         run_pixie(output_dict, blacklist_file)
 
     else:
-        print("ERROR-001: Inclusion of both '-w' and '-n' arguments not allowed.")
+        print("ERROR-001: Specify either the '-w' or '-n' argument; inclusion of both arguments are not allowed. Use the '-h' option for more information.")
