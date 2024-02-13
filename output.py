@@ -1,10 +1,11 @@
 from collections import Counter
-from parsers import ip_blacklist
+from parsers import talos_blacklist
+from init import wordlist_blacklist
 
 
-def run_pixie(output_dict):
+def run_pixie(output_dict, blacklist_file):
 
-    def parsed_output(output_dict):
+    def parsed_output(output_dict, blacklist_file):
         output = output_dict
         output_list = []
         
@@ -39,10 +40,10 @@ def run_pixie(output_dict):
         for entry in output_list:
             print(entry)
 
-        return blacklist_check(output_list)
+        return blacklist_check(output_list, blacklist_file)
     
 
-    def blacklist_check(output_list):
+    def blacklist_check(output_list, blacklist_file):
 
         print("""
 =============================================================================================
@@ -50,7 +51,11 @@ def run_pixie(output_dict):
 =============================================================================================
         """)
 
-        blacklist = ip_blacklist()
+        if blacklist_file == False:
+            blacklist = talos_blacklist()
+        else:
+            blacklist = wordlist_blacklist()
+
         blacklisted_ips_list = []
 
         for entry in output_list:
@@ -65,4 +70,4 @@ def run_pixie(output_dict):
             for blacklisted_ip in blacklisted_ips_list:
                 print(blacklisted_ip)
 
-    parsed_output(output_dict)
+    parsed_output(output_dict, blacklist_file)

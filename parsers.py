@@ -111,26 +111,9 @@ def public_address_parser(ip_address):
         return False
     
 
-def ip_blacklist():
-
-    print("\nUpdating IP address blacklist... ")
-
-    blacklist_url = "https://www.talosintelligence.com/documents/ip-blacklist"
-
-    try:
-        get_blacklist = urllib.request.urlopen(blacklist_url).read().decode('utf-8')
-        parsed_blacklist = get_blacklist.strip().split("\n")
-        print("IP address blacklist updated.\n")
-    except:
-        parsed_blacklist = []
-        print("Error-003: Failed to update blacklist IP")
-
-    return parsed_blacklist
-
-
 def netstat():
 
-    print("Processing Netstat output.")
+    print("Processing Netstat output...")
 
     ns_output = subprocess.check_output('netstat -n').decode('ascii').splitlines()
     ns_output_startline = ns_output[5:]
@@ -149,4 +132,23 @@ def netstat():
                 seen_foreign_addresses.add(parsed_foreign_address)
                 ns_address_list.append(parsed_foreign_address)
 
+    print("Done.")
+
     return ns_address_list
+
+
+def talos_blacklist():
+
+    print("\nUpdating IP address blacklist... ")
+
+    blacklist_url = "https://www.talosintelligence.com/documents/ip-blacklist"
+
+    try:
+        get_blacklist = urllib.request.urlopen(blacklist_url).read().decode('utf-8')
+        parsed_blacklist = get_blacklist.strip().split("\n")
+        print("IP address blacklist updated.")
+    except:
+        parsed_blacklist = []
+        print("Error-003: Failed to update blacklist IP")
+
+    return parsed_blacklist
