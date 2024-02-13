@@ -1,6 +1,6 @@
-![Logo](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/9c4bf089-0a69-4d81-8de5-9272af60c3fa)
+![Logo](https://github.com/UncleSocks/pixie-defenders-automated-ip-address-workflow/assets/79778613/5c9246bb-b155-40e1-abb9-192a57055df6)
 
-# Pixie: Mini Automated Defender's IP Address Workflow
+# Pixie: Mini Defender's Automated IP Address Workflow
 ![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.3.5-darkorange)
 
 
