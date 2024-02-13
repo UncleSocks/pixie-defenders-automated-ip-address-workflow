@@ -6,9 +6,17 @@
 
 A Python 3 script, named after my Mini Pinscher, that automates IP address lookup on IPInfo and displays the output in IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME] format and automatically checks against a blacklist. The script accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
 
-**NOTE:** You will need to sign up for IPInfo (FREE) to get your access token.
+**NOTE:** You must sign up for IPInfo (FREE) to get your access token.
 
 The tool is aimed to assist analysts in parsing and processing large volumes of IP addresses that would otherwise be unmanageable. It can now also be used to process the IP addresses your host machine is communicating and check them against the blacklist.
+
+## Prerequisites
+
+Run `pip install -r requirements.txt` to install the tool's dependencies.
+
+### Dependencies
+
+Pixie uses the `ipinfo` library to connect and query IP address information to and from IPInfo. The `maskpass` library is used to obfuscate the IPInfo Token.
 
 ## Options
 
@@ -65,7 +73,7 @@ Created by Tyrone Kevin Ilisan (@unclesocks)
 [+] Checks if any of the IP addresses are present in the blacklist:
     https[://]www[.]talosintelligence[.]com/documents/ip-blacklist
 
-Note: The tool requires the IPInfo token to connection to IPInfo.
+Note: The tool requires the IPInfo token to connect to IPInfo.
 
 
 Github: https[://]github[.]com/UncleSocks/pixie-automated-defenders-ip-address-workflow
@@ -111,7 +119,7 @@ Pixie now features an automated blacklist check against the Cisco Talos Intellig
 ```
 https://www.talosintelligence.com/documents/ip-blacklist
 ```
-The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist or netstat matches an address in the blacklist, it will be displayed in the BLACKLISTED IPs section in the output.
+The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist or netstat matches an address in the blacklist, it will be displayed in the **BLACKLISTED IPs** section in the output.
 
 
 ## Output
