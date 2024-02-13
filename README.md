@@ -80,7 +80,7 @@ When running the command, the script will ask for your IPInfo access token and y
 
 ### Organization Keyword Search
 
-Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script will look up each IP address in your text file list using the IPInfo API and will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
+Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script will look up each IP address in your text file list or netstat using the IPInfo API and will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
 
 ```
 Enter organization keyword (e.g., Microsoft): AMAZON MICROSOFT
@@ -90,7 +90,7 @@ Performing keyword parsing...
 
 ### Negating Organization Keyword Search
 
-If you want to negate your search, prepend a `NOT` keyword on your search (e.g., NOT AMAZON MICROSOFT GOOGLE). Similarly, the script will still look up each IP address inside the list using the IPInfo API but will only output the IP address that does not belong to the organization/s in your search.
+If you want to negate your search, prepend a `NOT` keyword on your search (e.g., NOT AMAZON MICROSOFT GOOGLE). Similarly, the script will still look up each IP address inside the list or netstat using the IPInfo API but will only output the IP address that does not belong to the organization/s in your search.
 ```
 Enter organization keyword (e.g., Microsoft): NOT AMAZON MICROSOFT
 Processing wordlist...
@@ -110,7 +110,7 @@ Pixie now features an automated blacklist check against the Cisco Talos Intellig
 ```
 https://www.talosintelligence.com/documents/ip-blacklist
 ```
-The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist matches an address in the blacklist, it will be displayed in the BLACKLISTED IPs section in the output.
+The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist or netstat matches an address in the blacklist, it will be displayed in the BLACKLISTED IPs section in the output.
 
 
 ## Output
