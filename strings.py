@@ -37,10 +37,13 @@ Created by Tyrone Kevin Ilisan (@unclesocks)
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
 [+] Outputs the results in IPADDRESS[COUNTRY:ORG:HOSTNAME] format.
-[+] Checks if any of the IP addresses are present in the blacklist.
+[+] Checks if any of the IP addresses are present in the blacklist:
+    https[://]www[.]talosintelligence[.]com/documents/ip-blacklist
 
-Note: The blacklist is from Cisco Talos Intelligence
 Note: The tool requires the IPInfo token to connection to IPInfo.
+
+
+Github: https[://]github[.]com/UncleSocks/pixie-automated-defenders-ip-address-workflow
    
 =============================================================================================
     """
