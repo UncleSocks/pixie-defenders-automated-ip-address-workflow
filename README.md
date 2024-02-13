@@ -93,7 +93,7 @@ Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script w
 
 ```
 Enter organization keyword (e.g., Microsoft): AMAZON MICROSOFT
-Processing wordlist...
+Processing wordlist.
 Performing keyword parsing...
 ```
 
@@ -110,7 +110,7 @@ Performing keyword parsing...
 If you want to simply look up all IP addresses in your list, use the `-` key.
 ```
 Enter organization keyword (e.g., Microsoft): -
-Processing wordlist...
+Processing wordlist.
 Performing keyword parsing...
 ```
 
