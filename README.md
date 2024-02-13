@@ -1,7 +1,8 @@
 ![Logo](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/9c4bf089-0a69-4d81-8de5-9272af60c3fa)
 
 # Pixie: Mini Automated Defender's IP Address Workflow
-![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.3.0-orange)
+![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.3.5-darkorange)
+
 
 A Python 3 script, named after my Mini Pinscher, that automates IP address lookup on IPInfo and displays the output in IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME] format and automatically checks against a blacklist. The script accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
 
@@ -23,10 +24,10 @@ The tool is aimed to assist analysts in parsing and processing large volumes of 
 
 **Netstat Option Usage:** Run the `pixie.py -n` command to use Netstat as the wordlist.
 
-**Example:** `pixie.py -i C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
+**Example:** `pixie.py -w C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
 
 ```
-C:\Users\Pixie>pixie.py -i samplelist.txt
+C:\Users\Pixie>pixie.py -w sample_list.txt
 
 =============================================================================================
 =============================================================================================
