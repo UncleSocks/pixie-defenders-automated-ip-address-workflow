@@ -7,13 +7,21 @@ A Python 3 script, named after my Mini Pinscher, that automates IP address looku
 
 **NOTE:** You will need to sign up for IPInfo (FREE) to get your access token.
 
-The tool is aimed to assist analysts in parsing and processing large volumes of IP addresses that would otherwise be unmanageable. 
+The tool is aimed to assist analysts in parsing and processing large volumes of IP addresses that would otherwise be unmanageable. It can now also be used to process the IP addresses your host machine is communicating and check them against the blacklist.
+
+## Options
+
+`-w` or `--wordlist`: Specify the location of the text file containing the list of IP addresses to be processed. A `sample_list.txt` file is provided for reference.
+
+`-n` or `--netstat`: Uses the `netstat -n` command to capture and parse the remote IP addresses communicating with the host machine. 
+
+**Note:** Only one argument can be specified at a time. If both arguments are included, Pixie returns an error.
 
 ## Usage
 
-Run the `pixie.py` Python3 script on your machine; use the `-i` or `--ip_list` option and specify the file location of the text file containing the list of IP addresses you want to look up. 
+**Wordlist Option Usage:** Run the `pixie.py -w <location_of_wordlist.txt>` command on the host machine.
 
-Please note that the text file must be in a format that each IP address takes up one line, and no non-IP address content must be present. A samplelist.txt is available in the repository for your reference.
+**Netstat Option Usage:** Run the `pixie.py -n` command to use Netstat as the wordlist.
 
 **Example:** `pixie.py -i C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
 
@@ -21,7 +29,7 @@ Please note that the text file must be in a format that each IP address takes up
 C:\Users\Pixie>pixie.py -i samplelist.txt
 
 =============================================================================================
-=============================================================================================                                                                                
+=============================================================================================
                      _____
                \/_  | Awo |    
               ..     -----                                                                
@@ -53,10 +61,13 @@ Created by Tyrone Kevin Ilisan (@unclesocks)
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
 [+] Outputs the results in IPADDRESS[COUNTRY:ORG:HOSTNAME] format.
-[+] Checks if any of the IP addresses are present in the blacklist.
+[+] Checks if any of the IP addresses are present in the blacklist:
+    https[://]www[.]talosintelligence[.]com/documents/ip-blacklist
 
-Note: The blacklist is from Cisco Talos Intelligence
 Note: The tool requires the IPInfo token to connection to IPInfo.
+
+
+Github: https[://]github[.]com/UncleSocks/pixie-automated-defenders-ip-address-workflow
    
 =============================================================================================
 
