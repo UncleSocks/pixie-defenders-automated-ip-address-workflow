@@ -1,7 +1,8 @@
 ![Logo](https://github.com/UncleSocks/pixie-automated-ipinfo-address-lookup/assets/79778613/9c4bf089-0a69-4d81-8de5-9272af60c3fa)
 
 # Pixie: Mini Automated Defender's IP Address Workflow
-![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.3.0-orange)
+![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.3.5-darkorange)
+
 
 A Python 3 script, named after my Mini Pinscher, that automates IP address lookup on IPInfo and displays the output in IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME] format and automatically checks against a blacklist. The script accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
 
@@ -23,10 +24,10 @@ The tool is aimed to assist analysts in parsing and processing large volumes of 
 
 **Netstat Option Usage:** Run the `pixie.py -n` command to use Netstat as the wordlist.
 
-**Example:** `pixie.py -i C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
+**Example:** `pixie.py -w C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
 
 ```
-C:\Users\Pixie>pixie.py -i samplelist.txt
+C:\Users\Pixie>pixie.py -w sample_list.txt
 
 =============================================================================================
 =============================================================================================
@@ -56,7 +57,7 @@ C:\Users\Pixie>pixie.py -i samplelist.txt
 
 
 Created by Tyrone Kevin Ilisan (@unclesocks)
-2024.3.0
+2024.3.5
 
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
@@ -80,7 +81,7 @@ When running the command, the script will ask for your IPInfo access token and y
 
 ### Organization Keyword Search
 
-Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script will look up each IP address in your text file list using the IPInfo API and will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
+Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script will look up each IP address in your text file list or netstat using the IPInfo API and will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
 
 ```
 Enter organization keyword (e.g., Microsoft): AMAZON MICROSOFT
@@ -90,7 +91,7 @@ Performing keyword parsing...
 
 ### Negating Organization Keyword Search
 
-If you want to negate your search, prepend a `NOT` keyword on your search (e.g., NOT AMAZON MICROSOFT GOOGLE). Similarly, the script will still look up each IP address inside the list using the IPInfo API but will only output the IP address that does not belong to the organization/s in your search.
+If you want to negate your search, prepend a `NOT` keyword on your search (e.g., NOT AMAZON MICROSOFT GOOGLE). Similarly, the script will still look up each IP address inside the list or netstat using the IPInfo API but will only output the IP address that does not belong to the organization/s in your search.
 ```
 Enter organization keyword (e.g., Microsoft): NOT AMAZON MICROSOFT
 Processing wordlist...
@@ -110,7 +111,7 @@ Pixie now features an automated blacklist check against the Cisco Talos Intellig
 ```
 https://www.talosintelligence.com/documents/ip-blacklist
 ```
-The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist matches an address in the blacklist, it will be displayed in the BLACKLISTED IPs section in the output.
+The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist or netstat matches an address in the blacklist, it will be displayed in the BLACKLISTED IPs section in the output.
 
 
 ## Output
