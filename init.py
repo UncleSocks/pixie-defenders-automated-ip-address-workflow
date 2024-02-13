@@ -31,7 +31,7 @@ def ip_wordlist(wordlist_argument):
     return ip_list
 
 
-def wordlist_blacklist():
+def blacklist_wordlist():
     
     print("\nParsing blacklist file...")
     parsed_wordlist_blacklist = []
@@ -41,7 +41,7 @@ def wordlist_blacklist():
             entry = entry.strip()
             parsed_wordlist_blacklist.append(entry)
     
-    print("Parsing complete.")
+    print("Parsing complete.\n")
 
     return parsed_wordlist_blacklist
 

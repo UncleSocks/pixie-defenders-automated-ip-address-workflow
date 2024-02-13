@@ -1,6 +1,6 @@
 from collections import Counter
 from parsers import talos_blacklist
-from init import wordlist_blacklist
+from init import blacklist_wordlist
 
 
 def run_pixie(output_dict, blacklist_file):
@@ -54,7 +54,7 @@ def run_pixie(output_dict, blacklist_file):
         if blacklist_file == False:
             blacklist = talos_blacklist()
         else:
-            blacklist = wordlist_blacklist()
+            blacklist = blacklist_wordlist()
 
         blacklisted_ips_list = []
 
@@ -65,7 +65,7 @@ def run_pixie(output_dict, blacklist_file):
                 blacklisted_ips_list.append(entry)
 
         if not blacklisted_ips_list:
-            print("No IP address are found in the blacklist.")
+            print("No IP address found in the blacklist.")
         else:
             for blacklisted_ip in blacklisted_ips_list:
                 print(blacklisted_ip)
