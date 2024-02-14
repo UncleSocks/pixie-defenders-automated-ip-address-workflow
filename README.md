@@ -1,6 +1,6 @@
-![Logo](https://github.com/UncleSocks/pixie-defenders-automated-ip-address-workflow/assets/79778613/5c9246bb-b155-40e1-abb9-192a57055df6)
+![image](https://github.com/UncleSocks/pixie-defenders-automated-ip-address-workflow/assets/79778613/054144a3-2155-438b-a775-6dadd00802dd)
 
-# Pixie: Mini Defender's Automated IP Address Workflow
+# Pixie: Defender's Mini Automated IP Address Workflow
 ![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.3.5-darkorange)
 
 
@@ -62,7 +62,7 @@ C:\Users\Pixie>pixie.py -w sample_list.txt
     :+:     :;;xx+  :X&&&&$:      .X&&&&&:;+$&&&: :$&&&&&&;:x&&&&&: X&&&&&$&&X       
     .+       .+;+; .X$&&&Xx:      +$&&&$x:X&&&$x. X$&&&$$x;+$&&&$+.  ;X&&$x;         
     :;        :;:;.                                                                  
-    ;:            ;;       Mini Automated Defender's IP Address Workflow                                         
+    ;:            ;;       Defender's IP Mini Automated Address Workflow                                         
    .;:            .::         
 
     In loving memory of my dog, Pixie.
@@ -125,7 +125,7 @@ https://www.talosintelligence.com/documents/ip-blacklist
 ```
 The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist or netstat matches an address in the blacklist, it will be displayed in the **BLACKLISTED IPs** section in the output.
 
-However, if you have your own set of blacklisted IP addresses, you can use the `-i` option to run the processed IP addresses against your own blacklist file.
+However, if you have your own set of blacklisted IP addresses, you can use the `-i` option to run the processed IP addresses against your own blacklist file. A **sample_blacklist.txt** file is included in the repository for reference.
 
 
 ## Output
