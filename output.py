@@ -37,3 +37,5 @@ def csv_ouput(parsed_output_list, parsed_blacklist_list, filename):
         csv_writer.writerow([])
         csv_writer.writerow(['BLACKLIST IPs'])
         csv_writer.writerows(parsed_blacklist_list)
+
+    return
