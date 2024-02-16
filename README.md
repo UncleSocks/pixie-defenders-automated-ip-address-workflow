@@ -38,7 +38,7 @@ Pixie uses the `ipinfo` library to connect and query IP address information to a
 
 **Wordlist Option with Blacklist File:** Run the `pixie.py -w <location_of_wordlist.txt> -i <location_of_blacklist.txt>` command if you want to use your own set of blacklisted IP addresses.
 
-**Wordlist Option with Blacklist File and CSV File Output** Run the `pixie.py -w <location_of_wordlist.txt> -o <output_filename.csv>` command if you have a wordlist and want to export the output in a CSV file.
+**Wordlist Option with Blacklist File and CSV File Output:** Run the `pixie.py -w <location_of_wordlist.txt> -o <output_filename.csv>` command if you have a wordlist and want to export the output in a CSV file.
 
 **Example:** `pixie.py -w C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
 
