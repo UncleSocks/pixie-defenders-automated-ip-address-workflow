@@ -3,7 +3,7 @@ import subprocess
 import urllib.request
 
 
-def ip_address_search_engine(handler, organization_keyword, ip_list):
+def ip_address_parser(handler, organization_keyword, ip_list):
 
     def ip_lookup(handler, organization_keyword, ip_list):
 
