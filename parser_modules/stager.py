@@ -49,7 +49,7 @@ def blacklist_check(output_list, blacklist_file):
             blacklisted_ips_list.append(entry)
 
     if not blacklisted_ips_list:
-        return "No IP address found in the blacklist."
+        return
     else:
         return blacklisted_ips_list
     
@@ -76,15 +76,17 @@ def export_blacklist_parser(blacklist_list):
 
     export_blacklist_list = []
 
-    for entry in blacklist_list:
-        ip_information_parser = re.search(r'\[(.*?)\]', entry).group(1).split(':')
+    if blacklist_list:
+    
+        for entry in blacklist_list:
+            ip_information_parser = re.search(r'\[(.*?)\]', entry).group(1).split(':')
 
-        ip_address = entry.split("[")[0]
-        country = ip_information_parser[0]
-        organization = ip_information_parser[1]
-        hostname = ip_information_parser[2]
+            ip_address = entry.split("[")[0]
+            country = ip_information_parser[0]
+            organization = ip_information_parser[1]
+            hostname = ip_information_parser[2]
 
-        current_ip_info = [ip_address, country, organization, hostname]
-        export_blacklist_list.append(current_ip_info)
+            current_ip_info = [ip_address, country, organization, hostname]
+            export_blacklist_list.append(current_ip_info)
 
     return export_blacklist_list

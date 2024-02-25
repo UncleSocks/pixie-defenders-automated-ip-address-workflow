@@ -19,11 +19,12 @@ def cli_output(output_list, blacklist_list):
 
 """
     
-    if blacklist_list == "No IP address found in the blacklist.":
-        print(blacklist_list)
-    else:
+    if blacklist_list:
         for blacklist in blacklist_list:
             cli_report += f"{blacklist}\n"
+    
+    else:
+        cli_report += "No IP address found in the blacklist."
 
     return print(cli_report)
 
