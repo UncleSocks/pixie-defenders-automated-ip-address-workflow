@@ -26,6 +26,8 @@ Pixie uses the `ipinfo` library to connect and query IP address information to a
 
 `-i` or `--ioc`: Specify the location of the text file containing the set of blacklisted IP addresses. If this option is not specified, Pixie defaults to using the Cisco Talos Intelligence blacklist.
 
+`-o` or `--output`: Specify the CSV filename with the '.csv' extension.
+
 **Note:** Either the `-w` or `-n` must be specified but not both. Inclusion of none or both will result in an error.
 
 ## Usage
@@ -34,7 +36,9 @@ Pixie uses the `ipinfo` library to connect and query IP address information to a
 
 **Netstat Option Usage:** Run the `pixie.py -n` command to use Netstat as the wordlist.
 
-**Wordlist Option with Blacklist File:** Run the `pixie.py -w <location_of_wordlist.txt> -i <location_of_blacklist.txt>` if you want to use your own set of blacklisted IP addresses.
+**Wordlist Option with Blacklist File:** Run the `pixie.py -w <location_of_wordlist.txt> -i <location_of_blacklist.txt>` command if you want to use your own set of blacklisted IP addresses.
+
+**Wordlist Option with Blacklist File and CSV File Output:** Run the `pixie.py -w <location_of_wordlist.txt> -o <output_filename.csv>` command if you have a wordlist and want to export the output in a CSV file.
 
 **Example:** `pixie.py -w C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
 
@@ -74,6 +78,7 @@ Created by Tyrone Kevin Ilisan (@unclesocks)
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
 [+] Outputs the results in IPADDRESS[COUNTRY:ORG:HOSTNAME] format.
+[+] Exports to an CSV file (optional).
 [+] Checks if any of the IP addresses are present in the blacklist:
     https[://]www[.]talosintelligence[.]com/documents/ip-blacklist
 
@@ -168,3 +173,13 @@ IP address blacklist updated.
 59.99.43.205[IN:NATIONAL INTERNET BACKBONE:NONE]
 163.172.154.105[FR:SCALEWAY S.A.S.:105-154-172-163.instances.scw.cloud]
 ```
+
+### CSV Output
+
+CSV file outputs are saved under the `./reports/` folder. An `output.csv` sample file is provided for reference.
+
+Similar to the CLI output, the CSV file is divided into two sections: the processed IP address list and the blacklisted IP addresses.
+
+![image](https://github.com/UncleSocks/pixie-defenders-automated-ip-address-workflow/assets/79778613/6f319e3a-3145-4cc1-9bb6-77c9f7ae3f20)
+
+
