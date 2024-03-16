@@ -1,4 +1,5 @@
 import re
+import time
 import requests
 from requests.auth import HTTPBasicAuth
 import subprocess
@@ -10,6 +11,8 @@ def ipinfo_lookup(handler, ip_list):
     print("Performing IP lookup on IPInfo...")
     processed_ip_list = []
     total_ips = len(ip_list)
+
+    start_time = time.time()
     
     for index, ip in enumerate(ip_list, start=1):
         ip_info = handler.getDetails(ip)
@@ -34,9 +37,11 @@ def ipinfo_lookup(handler, ip_list):
         processed_ip = {'IP ADDRESS':str(ip_address), 'COUNTRY':str(country), 'ORGANIZATION':str(organization), 'HOSTNAME':str(hostname)}
         processed_ip_list.append(processed_ip)
 
-        print(f"\Processing {index}/{total_ips} IP addresses", end="", flush=True)
+        print(f"\rProcessing {index}/{total_ips} IP addresses", end="", flush=True)
 
-    print("Lookup complete.")
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"\nLookup complete. Elapsed time: {elapsed_time:.2f} seconds.\n")
 
     return processed_ip_list
 
@@ -45,6 +50,8 @@ def xforce_lookup(api_url, api_key, api_pw, ip_list):
     print("Performing IP lookup on IBM X-Force...")
     processed_ip_list = []
     total_ips = len(ip_list)
+
+    start_time = time.time()
 
     for index, ip in enumerate(ip_list, start=1):
 
@@ -85,9 +92,11 @@ def xforce_lookup(api_url, api_key, api_pw, ip_list):
         else:
             print(f"Error: {response.status_code}")
         
-        print(f"\Processing {index}/{total_ips} IP addresses", end="", flush=True)
+        print(f"\rProcessing {index}/{total_ips} IP addresses", end="", flush=True)
 
-    print("Lookup complete.")
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"\nLookup complete. Elapsed time: {elapsed_time:.2f} seconds.\n")
 
     return processed_ip_list
 
@@ -151,6 +160,7 @@ def organization_parser(processed_ip_list, organization_keyword):
     else:
         print("ERROR! Use the '-h' for information on how to use the tool.")
 
+    print("Keyword parsing complete.")
     output_dict = {'Keyword List': organization_keyword_list, 'Keyword Counter':organization_keyword_counter, 'Output List':output_list}
     return output_dict
 
