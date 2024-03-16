@@ -1,34 +1,105 @@
-from parser_modules.parsers import ip_address_parser, netstat
+from parser_modules.parsers import ipinfo_lookup, xforce_lookup, organization_parser, netstat
 from parser_modules.stager import staged_output, blacklist_check, export_parser, export_blacklist_parser
-from init import arguments, ip_wordlist, ip_init, organization_keyword
+from init import arguments, ip_wordlist, ip_init, xforce_init, organization_keyword
 from output import cli_output, csv_ouput
 
 
 if __name__ == "__main__":
 
-    if arguments().wordlist and not arguments().netstat and not arguments().ioc:
-        output_dict = ip_address_parser(ip_init(), organization_keyword(), ip_wordlist(arguments()))
-        blacklist_file = False
+    if arguments().source == "i" or arguments().source is None: #Use IPInfo as OSINT source.
+        handler = ip_init()
+        organization_keywords = organization_keyword()
+        if arguments().wordlist and not arguments().netstat and not arguments().ioc:
+            ip_list = ip_wordlist(arguments())
+            processed_ip_list = ipinfo_lookup(handler, ip_list)
+            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            blacklist_file = False
 
-        output_list = staged_output(output_dict)
-        blacklist = blacklist_check(output_list, blacklist_file)
-        cli_output(output_list, blacklist)
+            output_list = staged_output(output_dict)
+            blacklist = blacklist_check(output_list, blacklist_file)
+            cli_output(output_list, blacklist)
 
-        if arguments().output:
+            if arguments().output:
 
-            print("Exporting to a CSV file...")
-            parsed_output_list = export_parser(output_list)
-            parsed_blacklist_list = export_blacklist_parser(blacklist)
+                print("Exporting to a CSV file...")
+                parsed_output_list = export_parser(output_list)
+                parsed_blacklist_list = export_blacklist_parser(blacklist)
 
-            print(f"CSV file exported as {arguments().output}")
-            csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
+                print(f"CSV file exported as {arguments().output}")
+                csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
 
 
-    elif arguments().netstat and not arguments().wordlist and not arguments().ioc:
-        output_dict = ip_address_parser(ip_init(), organization_keyword(), netstat())
-        blacklist_file = False
+        elif arguments().netstat and not arguments().wordlist and not arguments().ioc:
+            ip_list =  netstat()
+            processed_ip_list = ipinfo_lookup(handler, ip_list)
+            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            blacklist_file = False
+            
+            output_list = staged_output(output_dict)
+            blacklist = blacklist_check(output_list, blacklist_file)
+            cli_output(output_list, blacklist)
+
+            if arguments().output:
+
+                print("Exporting to a CSV file...")
+                parsed_output_list = export_parser(output_list)
+                parsed_blacklist_list = export_blacklist_parser(blacklist)
+
+                print(f"CSV file exported as {arguments().output}")
+                csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
+
+        elif arguments().wordlist and not arguments().netstat and arguments().ioc:
+            ip_list = ip_wordlist(arguments())
+            processed_ip_list = ipinfo_lookup(handler, ip_list)
+            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            blacklist_file = True
+            
+            output_list = staged_output(output_dict)
+            blacklist = blacklist_check(output_list, blacklist_file)
+            cli_output(output_list, blacklist)
+
+            if arguments().output:
+
+                print("Exporting to a CSV file...")
+                parsed_output_list = export_parser(output_list)
+                parsed_blacklist_list = export_blacklist_parser(blacklist)
+
+                print(f"CSV file exported as {arguments().output}")
+                csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
+
+        elif arguments().netstat and not arguments().wordlist and arguments().ioc:
+            ip_list =  netstat()
+            processed_ip_list = ipinfo_lookup(handler, ip_list)
+            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            blacklist_file = True
+
+            output_list = staged_output(output_dict)
+            blacklist = blacklist_check(output_list, blacklist_file)
+            cli_output(output_list, blacklist)
+
+            if arguments().output:
+
+                print("Exporting to a CSV file...")
+                parsed_output_list = export_parser(output_list)
+                parsed_blacklist_list = export_blacklist_parser(blacklist)
+
+                print(f"CSV file exported as {arguments().output}")
+                csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
+
+        else:
+            print("ERROR-001: Specify either the '-w' or '-n' argument; inclusion of both arguments are not allowed. Use the '-h' option for more information.")
+
+    elif arguments().source == "x": #Use IBM X-Force as OSINT source.
+        api_url, api_key, api_pw = xforce_init()
+        organization_keywords = organization_keyword()       
         
+        ip_list = ip_wordlist(arguments())
+        processed_ip_list = xforce_lookup(api_url, api_key, api_pw, ip_list)
+
+        output_dict = organization_parser(processed_ip_list, organization_keywords)
         output_list = staged_output(output_dict)
+
+        blacklist_file = False
         blacklist = blacklist_check(output_list, blacklist_file)
         cli_output(output_list, blacklist)
 
@@ -41,39 +112,3 @@ if __name__ == "__main__":
             print(f"CSV file exported as {arguments().output}")
             csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
 
-    elif arguments().wordlist and not arguments().netstat and arguments().ioc:
-        output_dict = ip_address_parser(ip_init(), organization_keyword(), ip_wordlist(arguments()))
-        blacklist_file = True
-        
-        output_list = staged_output(output_dict)
-        blacklist = blacklist_check(output_list, blacklist_file)
-        cli_output(output_list, blacklist)
-
-        if arguments().output:
-
-            print("Exporting to a CSV file...")
-            parsed_output_list = export_parser(output_list)
-            parsed_blacklist_list = export_blacklist_parser(blacklist)
-
-            print(f"CSV file exported as {arguments().output}")
-            csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
-
-    elif arguments().netstat and not arguments().wordlist and arguments().ioc:
-        output_dict = ip_address_parser(ip_init(), organization_keyword(), netstat())
-        blacklist_file = True
-
-        output_list = staged_output(output_dict)
-        blacklist = blacklist_check(output_list, blacklist_file)
-        cli_output(output_list, blacklist)
-
-        if arguments().output:
-
-            print("Exporting to a CSV file...")
-            parsed_output_list = export_parser(output_list)
-            parsed_blacklist_list = export_blacklist_parser(blacklist)
-
-            print(f"CSV file exported as {arguments().output}")
-            csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
-
-    else:
-        print("ERROR-001: Specify either the '-w' or '-n' argument; inclusion of both arguments are not allowed. Use the '-h' option for more information.")

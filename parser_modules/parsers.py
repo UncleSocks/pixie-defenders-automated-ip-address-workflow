@@ -1,49 +1,133 @@
 import re
+import requests
+from requests.auth import HTTPBasicAuth
 import subprocess
 import urllib.request
 
 
-def ip_address_parser(handler, organization_keyword, ip_list):
+def ipinfo_lookup(handler, ip_list):
 
-    def ip_lookup(handler, organization_keyword, ip_list):
-
-        processed_ip_list = []
+    print("Performing IP lookup on IPInfo...")
+    processed_ip_list = []
+    
+    for ip in ip_list:
+        ip_info = handler.getDetails(ip)
         
-        for ip in ip_list:
-            ip_info = handler.getDetails(ip)
-            
-            ip_address = ip_info.ip
-            
-            try:
-                country = ip_info.country
-            except:
+        ip_address = ip_info.ip
+        
+        try:
+            country = ip_info.country
+        except:
+            country = "NONE"
+
+        try:
+            organization = ip_info.org.split(' ',1)[1].upper()
+        except:
+            organization = "NONE"
+
+        try:
+            hostname = ip_info.hostname
+        except:
+            hostname = "NONE"
+
+        processed_ip = {'IP ADDRESS':str(ip_address), 'COUNTRY':str(country), 'ORGANIZATION':str(organization), 'HOSTNAME':str(hostname)}
+        processed_ip_list.append(processed_ip)
+
+    print("Lookup complete.")
+
+    return processed_ip_list
+
+
+def xforce_lookup(api_url, api_key, api_pw, ip_list):
+    print("Performing IP lookup on IBM X-Force...")
+    processed_ip_list = []
+
+    for ip_address in ip_list:
+
+        exchange = f"ipr/{ip_address}"
+        headers = {
+            "Content-Type": "application/json",
+        }
+
+        response = requests.get(
+            f"{api_url}{exchange}",
+            headers=headers,
+            auth=HTTPBasicAuth(api_key, api_pw)
+        )
+
+        if response.status_code == 200:
+            data = response.json()
+            history = str(data.get("history"))
+
+            ip_address = str(data.get('ip'))
+
+            country_match = re.search(r"'countrycode':\s*'(?P<country>.*?)'", history, re.IGNORECASE)
+            if country_match:
+                country = country_match.group('country')
+            else:
                 country = "NONE"
 
-            try:
-                organization = ip_info.org.split(' ',1)[1].upper()
-            except:
+            organization_match = re.search(r"'company':\s*'(?P<org>.*?)'", history, re.IGNORECASE)
+            if organization_match:
+                organization = organization_match.group('org')
+            else:
                 organization = "NONE"
 
-            try:
-                hostname = ip_info.hostname
-            except:
-                hostname = "NONE"
-
+            hostname = "NOT APPLICABLE"
+            
             processed_ip = {'IP ADDRESS':str(ip_address), 'COUNTRY':str(country), 'ORGANIZATION':str(organization), 'HOSTNAME':str(hostname)}
             processed_ip_list.append(processed_ip)
 
-        return organization_parser(processed_ip_list, organization_keyword)
+        else:
+            print(f"Error: {response.status_code}")
+        
+    print("Lookup complete.")
+
+    return processed_ip_list
+
+
+def organization_parser(processed_ip_list, organization_keyword):
+
+    print("Performing keyword parsing...")
+
+    organization_keyword_list = organization_keyword.split(' ')
+    output_list = []
+    organization_keyword_counter = 0
+
+    if organization_keyword_list[0] == "-":
+
+        for ip in processed_ip_list:
+
+            ip_address = ip['IP ADDRESS']
+            country = ip['COUNTRY']
+            organization = ip['ORGANIZATION']
+            hostname = ip['HOSTNAME']
+
+            ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
+            output_list.append(ip_output)
+        
+        organization_keyword_counter += 1
+
+    elif organization_keyword_list[0] == "not":
+
+        for keyword in organization_keyword_list[1:]:
+
+            for ip in processed_ip_list:
+        
+                ip_address = ip['IP ADDRESS']
+                country = ip['COUNTRY']
+                organization = ip['ORGANIZATION']
+                hostname = ip['HOSTNAME']
+
+                if keyword not in organization.lower():
+                    ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
+                    output_list.append(ip_output)
+            
+            organization_keyword_counter += 1
     
+    elif organization_keyword_list[0] != "not":
 
-    def organization_parser(processed_ip_list, organization_keyword):
-
-        print("Performing keyword parsing...")
-
-        organization_keyword_list = organization_keyword.split(' ')
-        output_list = []
-        organization_keyword_counter = 0
-
-        if organization_keyword_list[0] == "-":
+        for keyword in organization_keyword_list[0:]:
 
             for ip in processed_ip_list:
 
@@ -52,53 +136,17 @@ def ip_address_parser(handler, organization_keyword, ip_list):
                 organization = ip['ORGANIZATION']
                 hostname = ip['HOSTNAME']
 
-                ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
-                output_list.append(ip_output)
+                if keyword in organization.lower():
+                    ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
+                    output_list.append(ip_output)
             
             organization_keyword_counter += 1
-
-        elif organization_keyword_list[0] == "not":
-
-            for keyword in organization_keyword_list[1:]:
-
-                for ip in processed_ip_list:
-          
-                    ip_address = ip['IP ADDRESS']
-                    country = ip['COUNTRY']
-                    organization = ip['ORGANIZATION']
-                    hostname = ip['HOSTNAME']
-
-                    if keyword not in organization.lower():
-                        ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
-                        output_list.append(ip_output)
-                
-                organization_keyword_counter += 1
-        
-        elif organization_keyword_list[0] != "not":
-
-            for keyword in organization_keyword_list[0:]:
-
-                for ip in processed_ip_list:
-
-                    ip_address = ip['IP ADDRESS']
-                    country = ip['COUNTRY']
-                    organization = ip['ORGANIZATION']
-                    hostname = ip['HOSTNAME']
-
-                    if keyword in organization.lower():
-                        ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
-                        output_list.append(ip_output)
-                
-                organization_keyword_counter += 1
-        
-        else:
-            print("ERROR! Use the '-h' for information on how to use the tool.")
-
-        output_dict = {'Keyword List': organization_keyword_list, 'Keyword Counter':organization_keyword_counter, 'Output List':output_list}
-        return output_dict
     
-    return ip_lookup(handler, organization_keyword, ip_list)
+    else:
+        print("ERROR! Use the '-h' for information on how to use the tool.")
 
+    output_dict = {'Keyword List': organization_keyword_list, 'Keyword Counter':organization_keyword_counter, 'Output List':output_list}
+    return output_dict
 
 
 def public_address_parser(ip_address):
