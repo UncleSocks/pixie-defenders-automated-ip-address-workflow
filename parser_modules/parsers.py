@@ -9,8 +9,9 @@ def ipinfo_lookup(handler, ip_list):
 
     print("Performing IP lookup on IPInfo...")
     processed_ip_list = []
+    total_ips = len(ip_list)
     
-    for ip in ip_list:
+    for index, ip in enumerate(ip_list, start=1):
         ip_info = handler.getDetails(ip)
         
         ip_address = ip_info.ip
@@ -33,6 +34,8 @@ def ipinfo_lookup(handler, ip_list):
         processed_ip = {'IP ADDRESS':str(ip_address), 'COUNTRY':str(country), 'ORGANIZATION':str(organization), 'HOSTNAME':str(hostname)}
         processed_ip_list.append(processed_ip)
 
+        print(f"\Processing {index}/{total_ips} IP addresses", end="", flush=True)
+
     print("Lookup complete.")
 
     return processed_ip_list
@@ -41,10 +44,11 @@ def ipinfo_lookup(handler, ip_list):
 def xforce_lookup(api_url, api_key, api_pw, ip_list):
     print("Performing IP lookup on IBM X-Force...")
     processed_ip_list = []
+    total_ips = len(ip_list)
 
-    for ip_address in ip_list:
+    for index, ip in enumerate(ip_list, start=1):
 
-        exchange = f"ipr/{ip_address}"
+        exchange = f"ipr/{ip}"
         headers = {
             "Content-Type": "application/json",
         }
@@ -81,6 +85,8 @@ def xforce_lookup(api_url, api_key, api_pw, ip_list):
         else:
             print(f"Error: {response.status_code}")
         
+        print(f"\Processing {index}/{total_ips} IP addresses", end="", flush=True)
+
     print("Lookup complete.")
 
     return processed_ip_list
