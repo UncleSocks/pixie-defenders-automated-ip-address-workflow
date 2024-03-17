@@ -78,7 +78,7 @@ C:\Users\Pixie>pixie.py -w sample_list.txt
 
 
 Created by Tyrone Kevin Ilisan (@unclesocks)
-2024.3.5
+2024.4.0
 
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
@@ -97,13 +97,13 @@ Github: https[://]github[.]com/UncleSocks/pixie-automated-defenders-ip-address-w
 Enter token: ***************
 ```
 
-When running the command, the script will ask for your IPInfo access token and your desired IP address organization keyword/s for searching. 
+The script will ask for your IPInfo access token and your desired IP address organization keyword/s for searching when running the command. 
 
 **NOTE:** When pasting the IPInfo token, use the right-click button of your mouse.
 
 ### Organization Keyword Search
 
-Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script will look up each IP address in your text file list or netstat using the IPInfo API and will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
+Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script will look up each IP address in your text file list or netstat using the IPInfo or IBM X-Force API and will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
 
 ```
 Enter organization keyword (e.g., Microsoft): AMAZON MICROSOFT
@@ -113,7 +113,7 @@ Performing keyword parsing...
 
 ### Negating Organization Keyword Search
 
-If you want to negate your search, prepend a `NOT` keyword on your search (e.g., NOT AMAZON MICROSOFT GOOGLE). Similarly, the script will still look up each IP address inside the list or netstat using the IPInfo API but will only output the IP address that does not belong to the organization/s in your search.
+If you want to negate your search, prepend a `NOT` keyword on your search (e.g., NOT AMAZON MICROSOFT GOOGLE). Similarly, the script will still look up each IP address inside the list or netstat but will only output the IP address that does not belong to the organization/s in your search.
 ```
 Enter organization keyword (e.g., Microsoft): NOT AMAZON MICROSOFT
 Processing wordlist...
@@ -135,7 +135,7 @@ https://www.talosintelligence.com/documents/ip-blacklist
 ```
 The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist or netstat matches an address in the blacklist, it will be displayed in the **BLACKLISTED IPs** section in the output.
 
-However, if you have your own set of blacklisted IP addresses, you can use the `-i` option to run the processed IP addresses against your own blacklist file. A **sample_blacklist.txt** file is included in the repository for reference.
+You can use the `-i` option to run the processed IP addresses against your own blacklist file. A **sample_blacklist.txt** file is included in the repository for reference.
 
 
 ## Output
