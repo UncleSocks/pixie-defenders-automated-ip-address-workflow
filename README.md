@@ -1,14 +1,14 @@
 ![image](https://github.com/UncleSocks/pixie-defenders-automated-ip-address-workflow/assets/79778613/054144a3-2155-438b-a775-6dadd00802dd)
 
 # Pixie: Defender's Mini Automated IP Address Workflow
-![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.3.5-darkorange)
+![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.4.0-orange) ![Static Badge](https://img.shields.io/badge/Supports-IPInfo%20and%20IBM%20XForce%20API-blue)
 
 
-A Python 3 script, named after my Mini Pinscher, that automates IP address lookup on IPInfo and displays the output in IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME] format and automatically checks against a blacklist. The script accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
+A Python 3 script, named after my Mini Pinscher, that automates IP address lookup using IPInfo API or IBM X-Force API. It then displays the output in IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME] format and automatically checks against a blacklist. The script also has a simple search engine that accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
 
-**NOTE:** You must sign up for IPInfo (FREE) to get your access token.
+**NOTE:** The script requires you to supply your own IPInfo API token or IBM X-Force API key and password.
 
-The tool is aimed to assist analysts in parsing and processing large volumes of IP addresses that would otherwise be unmanageable. It can now also be used to process the IP addresses your host machine is communicating and check them against the blacklist.
+The tool aims to assist SOC analysts in parsing and processing large volumes of IP addresses that would otherwise be unmanageable. It can now also be used to process the IP addresses your host machine is communicating and check them against the blacklist.
 
 ## Prerequisites
 
@@ -16,9 +16,33 @@ Run `pip install -r requirements.txt` to install the tool's dependencies.
 
 ### Dependencies
 
-Pixie uses the `ipinfo` library to connect and query IP address information to and from IPInfo. The `maskpass` library is used to obfuscate the IPInfo Token.
+Pixie uses the `ipinfo` library to connect and query IP address information to and from IPInfo. It uses the `requests` library to perform HTTP/S API requests on IBM X-Force. The `maskpass` library is used to obfuscate the IPInfo Token.
 
 ## Options
+
+You can use the `-h` or `--help` option to display a quick guide on how to use Pixie.
+```
+pixie.py -h
+usage: pixie.py [-h] [-w WORDLIST] [-n] [-i IOC] [-o OUTPUT] [-s SOURCE]
+
+Mini defender's IP address workflow. Enter the organization keyword/s for searching, use space as a separator for multiple keywords; prepend the 'NOT' keyword to negate the search. The '-' character will
+process all IP addresses in the list without any keyword.
+
+options:
+  -h, --help            show this help message and exit
+  -w WORDLIST, --wordlist WORDLIST
+                        Specify the location of the text file containing the IP addresses to be processed.
+  -n, --netstat         Uses 'netstat -n' to capture public IP addresses communicating with the host.
+  -i IOC, --ioc IOC     [Optional] Specify the location of the text file containing the blacklist. If not specified Pixie will use the Cisco Talos Intelligence blacklist.
+  -o OUTPUT, --output OUTPUT
+                        [Optional] Specify the filename for the CSV file with the .csv extension.
+  -s SOURCE, --source SOURCE
+                        Specify IP address lookup OSINT source (currently supports IPInfo and IBM X-Force)
+```
+
+### Available Options
+
+`-s` or `--source`: Specify which source Pixie will use to look-up the IP addresses. Currently, it supports IPInfo and IBM X-Force. When unspecified it will query to IPInfo by default.
 
 `-w` or `--wordlist`: Specify the location of the text file containing the list of IP addresses to be processed. A `sample_list.txt` file is provided for reference.
 
@@ -27,6 +51,7 @@ Pixie uses the `ipinfo` library to connect and query IP address information to a
 `-i` or `--ioc`: Specify the location of the text file containing the set of blacklisted IP addresses. If this option is not specified, Pixie defaults to using the Cisco Talos Intelligence blacklist.
 
 `-o` or `--output`: Specify the CSV filename with the '.csv' extension.
+
 
 **Note:** Either the `-w` or `-n` must be specified but not both. Inclusion of none or both will result in an error.
 
@@ -39,6 +64,8 @@ Pixie uses the `ipinfo` library to connect and query IP address information to a
 **Wordlist Option with Blacklist File:** Run the `pixie.py -w <location_of_wordlist.txt> -i <location_of_blacklist.txt>` command if you want to use your own set of blacklisted IP addresses.
 
 **Wordlist Option with Blacklist File and CSV File Output:** Run the `pixie.py -w <location_of_wordlist.txt> -o <output_filename.csv>` command if you have a wordlist and want to export the output in a CSV file.
+
+**Use IBM X-Force as IP Address Look-Up Source:** Run the `pixie.py -s x -w <location_of_wordlist.txt>` command if you want to use IBM X-Force API to lookup the IP addresses in the specified wordlist.
 
 **Example:** `pixie.py -w C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
 
@@ -73,7 +100,7 @@ C:\Users\Pixie>pixie.py -w sample_list.txt
 
 
 Created by Tyrone Kevin Ilisan (@unclesocks)
-2024.3.5
+2024.4.0
 
 [+] Automatically queries the IP addresses in the wordlist on IPInfo.
 [+] Accepts organization keywords for filtering.
@@ -92,13 +119,13 @@ Github: https[://]github[.]com/UncleSocks/pixie-automated-defenders-ip-address-w
 Enter token: ***************
 ```
 
-When running the command, the script will ask for your IPInfo access token and your desired IP address organization keyword/s for searching. 
+The script will ask for your IPInfo access token and your desired IP address organization keyword/s for searching when running the command. 
 
 **NOTE:** When pasting the IPInfo token, use the right-click button of your mouse.
 
 ### Organization Keyword Search
 
-Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script will look up each IP address in your text file list or netstat using the IPInfo API and will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
+Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script will look up each IP address in your text file list or netstat using the IPInfo or IBM X-Force API and will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
 
 ```
 Enter organization keyword (e.g., Microsoft): AMAZON MICROSOFT
@@ -108,7 +135,7 @@ Performing keyword parsing...
 
 ### Negating Organization Keyword Search
 
-If you want to negate your search, prepend a `NOT` keyword on your search (e.g., NOT AMAZON MICROSOFT GOOGLE). Similarly, the script will still look up each IP address inside the list or netstat using the IPInfo API but will only output the IP address that does not belong to the organization/s in your search.
+If you want to negate your search, prepend a `NOT` keyword on your search (e.g., NOT AMAZON MICROSOFT GOOGLE). Similarly, the script will still look up each IP address inside the list or netstat but will only output the IP address that does not belong to the organization/s in your search.
 ```
 Enter organization keyword (e.g., Microsoft): NOT AMAZON MICROSOFT
 Processing wordlist...
@@ -130,10 +157,12 @@ https://www.talosintelligence.com/documents/ip-blacklist
 ```
 The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist or netstat matches an address in the blacklist, it will be displayed in the **BLACKLISTED IPs** section in the output.
 
-However, if you have your own set of blacklisted IP addresses, you can use the `-i` option to run the processed IP addresses against your own blacklist file. A **sample_blacklist.txt** file is included in the repository for reference.
+You can use the `-i` option to run the processed IP addresses against your own blacklist file. A **sample_blacklist.txt** file is included in the repository for reference.
 
 
 ## Output
+
+Pixie displays the output in the CLI or in an CSV file when the `-o` option is specified.
 
 The script displays a two-section output: the parsed addressed then the matched blacklisted IP addresses.
 ```
