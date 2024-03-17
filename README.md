@@ -4,11 +4,11 @@
 ![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.3.5-darkorange)
 
 
-A Python 3 script, named after my Mini Pinscher, that automates IP address lookup on IPInfo and displays the output in IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME] format and automatically checks against a blacklist. The script accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
+A Python 3 script, named after my Mini Pinscher, that automates IP address lookup using IPInfo API or IBM X-Force API. It then displays the output in IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME] format and automatically checks against a blacklist. The script also has a simple search engine that accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
 
-**NOTE:** You must sign up for IPInfo (FREE) to get your access token.
+**NOTE:** The script requires you to supply your own IPInfo API token or IBM X-Force API key and password.
 
-The tool is aimed to assist analysts in parsing and processing large volumes of IP addresses that would otherwise be unmanageable. It can now also be used to process the IP addresses your host machine is communicating and check them against the blacklist.
+The tool aims to assist SOC analysts in parsing and processing large volumes of IP addresses that would otherwise be unmanageable. It can now also be used to process the IP addresses your host machine is communicating and check them against the blacklist.
 
 ## Prerequisites
 
@@ -16,9 +16,11 @@ Run `pip install -r requirements.txt` to install the tool's dependencies.
 
 ### Dependencies
 
-Pixie uses the `ipinfo` library to connect and query IP address information to and from IPInfo. The `maskpass` library is used to obfuscate the IPInfo Token.
+Pixie uses the `ipinfo` library to connect and query IP address information to and from IPInfo. It uses the `requests` library to perform HTTP/S API requests on IBM X-Force. The `maskpass` library is used to obfuscate the IPInfo Token.
 
 ## Options
+
+`-s` or `--source`: Specify which source Pixie will use to look-up the IP addresses. Currently, it supports IPInfo and IBM X-Force. When unspecified it will query to IPInfo by default.
 
 `-w` or `--wordlist`: Specify the location of the text file containing the list of IP addresses to be processed. A `sample_list.txt` file is provided for reference.
 
@@ -27,6 +29,7 @@ Pixie uses the `ipinfo` library to connect and query IP address information to a
 `-i` or `--ioc`: Specify the location of the text file containing the set of blacklisted IP addresses. If this option is not specified, Pixie defaults to using the Cisco Talos Intelligence blacklist.
 
 `-o` or `--output`: Specify the CSV filename with the '.csv' extension.
+
 
 **Note:** Either the `-w` or `-n` must be specified but not both. Inclusion of none or both will result in an error.
 
@@ -39,6 +42,8 @@ Pixie uses the `ipinfo` library to connect and query IP address information to a
 **Wordlist Option with Blacklist File:** Run the `pixie.py -w <location_of_wordlist.txt> -i <location_of_blacklist.txt>` command if you want to use your own set of blacklisted IP addresses.
 
 **Wordlist Option with Blacklist File and CSV File Output:** Run the `pixie.py -w <location_of_wordlist.txt> -o <output_filename.csv>` command if you have a wordlist and want to export the output in a CSV file.
+
+**Use IBM X-Force as IP Address Look-Up Source:** Run the `pixie.py -s x -w <location_of_wordlist.txt>` command if you want to use IBM X-Force API to lookup the IP addresses in the specified wordlist.
 
 **Example:** `pixie.py -w C:\Users\$Username\Documents\List_of_IP_Addresses.txt`
 
