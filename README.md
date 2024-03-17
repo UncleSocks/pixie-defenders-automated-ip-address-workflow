@@ -102,7 +102,7 @@ C:\Users\Pixie>pixie.py -w sample_list.txt
 Created by Tyrone Kevin Ilisan (@unclesocks)
 2024.4.0
 
-[+] Automatically queries the IP addresses in the wordlist on IPInfo.
+[+] Automatically queries the IP addresses in the wordlist on IPInfo and IBM X-Force
 [+] Accepts organization keywords for filtering.
 [+] Outputs the results in IPADDRESS[COUNTRY:ORG:HOSTNAME] format.
 [+] Exports to an CSV file (optional).
