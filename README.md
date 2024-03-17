@@ -4,10 +4,11 @@
 ![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.4.0-orange) ![Static Badge](https://img.shields.io/badge/Supports-IPInfo%20and%20IBM%20XForce%20API-blue)
 
 
-A Python 3 script, named after my Mini Pinscher, automates IP address lookup using IPInfo API or IBM X-Force API. It then displays the output in **IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME]** format and automatically checks against a blacklist. The script also has a simple search engine that accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
+A Python 3 script, named after my Mini Pinscher, automates IP address lookup using IPInfo or IBM X-Force API.
 
-**NOTE:** The script requires you to supply your own IPInfo API token or IBM X-Force API key and password.
+It accepts an IP address wordlist file or captures the foreign addresses the host machine is communicating to using netstat, then displays the output in **IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME]** format and automatically checks against a blacklist. The script also has a simple search engine that accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it can also negate your searches).
 
+**NOTE:** The script requires you to supply your IPInfo API token or IBM X-Force API key and password.
 The tool aims to assist SOC analysts in parsing and processing large volumes of IP addresses that would otherwise be unmanageable. It can now also be used to process the IP addresses your host machine is communicating and check them against the blacklist.
 
 ## Prerequisites
@@ -42,7 +43,7 @@ options:
 
 ### Available Options
 
-`-s` or `--source`: Specify which source Pixie will use to look-up the IP addresses. Currently, it supports IPInfo and IBM X-Force. When unspecified it will query to IPInfo by default.
+`-s` or `--source`: Specify which source Pixie will use to look up the IP addresses. Currently, it supports IPInfo and IBM X-Force. When unspecified it will query to IPInfo by default.
 
 `-w` or `--wordlist`: Specify the location of the text file containing the list of IP addresses to be processed. A `sample_list.txt` file is provided for reference.
 
@@ -53,7 +54,7 @@ options:
 `-o` or `--output`: Specify the CSV filename with the '.csv' extension.
 
 
-**Note:** Either the `-w` or `-n` must be specified but not both. Inclusion of none or both will result in an error.
+**Note:** Either the `-w` or `-n` must be specified but not both. The inclusion of none or both will result in an error.
 
 ## Usage
 
@@ -119,13 +120,13 @@ Github: https[://]github[.]com/UncleSocks/pixie-automated-defenders-ip-address-w
 Enter token: ***************
 ```
 
-The script will ask for your IPInfo access token and your desired IP address organization keyword/s for searching when running the command. 
+The script will ask for your IPInfo access token or IBM X-Force API key and password and your desired IP address organization keyword/s for searching when running the command. 
 
-**NOTE:** When pasting the IPInfo token, use the right-click button of your mouse.
+**NOTE:** When pasting, use the right-click button of your mouse.
 
 ### Organization Keyword Search
 
-Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script will look up each IP address in your text file list or netstat using the IPInfo or IBM X-Force API and will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
+Use a space to separate multiple keywords (e.g., AMAZON MICROSOFT). The script will look up each IP address in your text file list or netstat on IPInfo or IBM X-Force. It will only output the addresses that match ANY of the provided organization keywords. In short, the script will show you the list of addresses belonging to the organization/s in your search.
 
 ```
 Enter organization keyword (e.g., Microsoft): AMAZON MICROSOFT
@@ -142,8 +143,8 @@ Processing wordlist...
 Performing keyword parsing...
 ```
 
-### Lookup All IP Address In The Wordlist
-If you want to simply look up all IP addresses in your list, use the `-` key.
+### Lookup All IP Addresses In The Wordlist
+If you want to look up all IP addresses in your list, use the `-` key.
 ```
 Enter organization keyword (e.g., Microsoft): -
 Processing wordlist.
@@ -155,14 +156,14 @@ Pixie now features an automated blacklist check against the Cisco Talos Intellig
 ```
 https://www.talosintelligence.com/documents/ip-blacklist
 ```
-The IP blacklist is updated every time you run Pixie. If an IP address in your wordlist or netstat matches an address in the blacklist, it will be displayed in the **BLACKLISTED IPs** section in the output.
+The IP blacklist is updated every time you run Pixie. Suppose an IP address in your wordlist or netstat matches an address in the blacklist. In that case, it will be displayed in the **BLACKLISTED IPs** section in the output.
 
 You can use the `-i` option to run the processed IP addresses against your own blacklist file. A **sample_blacklist.txt** file is included in the repository for reference.
 
 
 ## Output
 
-Pixie displays the output in the CLI or in an CSV file when the `-o` option is specified.
+Pixie displays the CLI or CSV file output when the `-o` option is specified.
 
 The script displays a two-section output: the parsed addressed then the matched blacklisted IP addresses.
 ```
