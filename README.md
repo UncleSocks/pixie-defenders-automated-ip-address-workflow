@@ -140,6 +140,8 @@ You can use the `-i` option to run the processed IP addresses against your own b
 
 ## Output
 
+Pixie displays the output in the CLI or in an CSV file when the `-o` option is specified.
+
 The script displays a two-section output: the parsed addressed then the matched blacklisted IP addresses.
 ```
 =============================================================================================
