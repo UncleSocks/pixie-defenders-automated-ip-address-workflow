@@ -1,7 +1,7 @@
 ![image](https://github.com/UncleSocks/pixie-defenders-automated-ip-address-workflow/assets/79778613/054144a3-2155-438b-a775-6dadd00802dd)
 
 # Pixie: Defender's Mini Automated IP Address Workflow
-![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.4.0-orange) ![Static Badge](https://img.shields.io/badge/Supports-IPInfo%20and%20IBM%20XForce%20API-blue)
+![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.4.0-orange) ![Static Badge](https://img.shields.io/badge/Supports-IPInfo%20and%20IBM%20X--Force%20API-blue)
 
 
 A Python 3 script, named after my Mini Pinscher, automates IP address lookup using IPInfo or IBM X-Force API.
