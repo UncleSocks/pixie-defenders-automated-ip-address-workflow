@@ -1,7 +1,7 @@
 ![image](https://github.com/UncleSocks/pixie-defenders-automated-ip-address-workflow/assets/79778613/054144a3-2155-438b-a775-6dadd00802dd)
 
 # Pixie: Defender's Mini Automated IP Address Workflow
-![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.3.5-darkorange)
+![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.4.0-orange) ![Static Badge](https://img.shields.io/badge/Supports-IPInfo%20and%20IBM%20XForce%20API-blue)
 
 
 A Python 3 script, named after my Mini Pinscher, that automates IP address lookup using IPInfo API or IBM X-Force API. It then displays the output in IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME] format and automatically checks against a blacklist. The script also has a simple search engine that accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
