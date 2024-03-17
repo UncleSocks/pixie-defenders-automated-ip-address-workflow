@@ -32,9 +32,9 @@ def pixie_logo():
 
 
 Created by Tyrone Kevin Ilisan (@unclesocks)
-2024.3.5
+2024.4.0
 
-[+] Automatically queries the IP addresses in the wordlist on IPInfo.
+[+] Automatically queries the IP addresses in the wordlist on IPInfo or IBM X-Force.
 [+] Accepts organization keywords for filtering.
 [+] Outputs the results in IPADDRESS[COUNTRY:ORG:HOSTNAME] format.
 [+] Checks if any of the IP addresses are present in the blacklist:
