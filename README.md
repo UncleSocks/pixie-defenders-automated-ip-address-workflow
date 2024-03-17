@@ -20,6 +20,28 @@ Pixie uses the `ipinfo` library to connect and query IP address information to a
 
 ## Options
 
+You can use the `-h` or `--help` option to display a quick guide on how to use Pixie.
+```
+pixie.py -h
+usage: pixie.py [-h] [-w WORDLIST] [-n] [-i IOC] [-o OUTPUT] [-s SOURCE]
+
+Mini defender's IP address workflow. Enter the organization keyword/s for searching, use space as a separator for multiple keywords; prepend the 'NOT' keyword to negate the search. The '-' character will
+process all IP addresses in the list without any keyword.
+
+options:
+  -h, --help            show this help message and exit
+  -w WORDLIST, --wordlist WORDLIST
+                        Specify the location of the text file containing the IP addresses to be processed.
+  -n, --netstat         Uses 'netstat -n' to capture public IP addresses communicating with the host.
+  -i IOC, --ioc IOC     [Optional] Specify the location of the text file containing the blacklist. If not specified Pixie will use the Cisco Talos Intelligence blacklist.
+  -o OUTPUT, --output OUTPUT
+                        [Optional] Specify the filename for the CSV file with the .csv extension.
+  -s SOURCE, --source SOURCE
+                        Specify IP address lookup OSINT source (currently supports IPInfo and IBM X-Force)
+```
+
+### Available Options
+
 `-s` or `--source`: Specify which source Pixie will use to look-up the IP addresses. Currently, it supports IPInfo and IBM X-Force. When unspecified it will query to IPInfo by default.
 
 `-w` or `--wordlist`: Specify the location of the text file containing the list of IP addresses to be processed. A `sample_list.txt` file is provided for reference.
