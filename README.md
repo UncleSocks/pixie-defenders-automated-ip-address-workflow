@@ -4,7 +4,7 @@
 ![Static Badge](https://img.shields.io/badge/License%20-%20MIT%20-%20brown) ![Static Badge](https://img.shields.io/badge/Release-2024.4.0-orange) ![Static Badge](https://img.shields.io/badge/Supports-IPInfo%20and%20IBM%20XForce%20API-blue)
 
 
-A Python 3 script, named after my Mini Pinscher, automating IP address lookup using IPInfo API or IBM X-Force API. It then displays the output in **IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME]** format and automatically checks against a blacklist. The script also has a simple search engine that accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
+A Python 3 script, named after my Mini Pinscher, automates IP address lookup using IPInfo API or IBM X-Force API. It then displays the output in **IPADDRESS[COUNTRY:ORGANIZATION:HOSTNAME]** format and automatically checks against a blacklist. The script also has a simple search engine that accepts IP address organization keyword/s and outputs the addresses matching the keyword/s (it is also capable of negating your searches). 
 
 **NOTE:** The script requires you to supply your own IPInfo API token or IBM X-Force API key and password.
 
@@ -22,11 +22,11 @@ Pixie uses the `ipinfo` library to connect and query IP address information to a
 
 You can use the `-h` or `--help` option to display a quick guide on how to use Pixie.
 ```
-pixie.py -h
+C:\Users\Pixie>pixie.py -h
 usage: pixie.py [-h] [-w WORDLIST] [-n] [-i IOC] [-o OUTPUT] [-s SOURCE]
 
-Mini defender's IP address workflow. Enter the organization keyword/s for searching, use space as a separator for multiple keywords; prepend the 'NOT' keyword to negate the search. The '-' character will
-process all IP addresses in the list without any keyword.
+Defender's mini IP address workflow. Enter the organization keyword/s for searching, use space as a separator for multiple keywords; prepend the 'NOT' keyword to negate the search. The '-' character will process all IP addresses in the
+list without any keyword.
 
 options:
   -h, --help            show this help message and exit
