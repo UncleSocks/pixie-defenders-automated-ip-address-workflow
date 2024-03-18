@@ -4,7 +4,7 @@ from init import arguments, ip_wordlist, ip_init, xforce_init, organization_keyw
 from output import cli_output, csv_ouput
 
 
-if __name__ == "__main__":
+def pixie():
 
     if arguments().source == "i" or arguments().source is None: #Use IPInfo as OSINT source.
         handler = ip_init()
@@ -128,3 +128,6 @@ if __name__ == "__main__":
     else:
         print("ERROR-005: Invalid source argument. Use the '-h' option for more information.")
 
+
+if __name__ == "__main__":
+    pixie()
