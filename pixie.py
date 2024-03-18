@@ -125,3 +125,6 @@ if __name__ == "__main__":
             print(f"CSV file exported as {arguments().output}")
             csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
 
+    else:
+        print("ERROR-005: Invalid source argument. Use the '-h' option for more information.")
+

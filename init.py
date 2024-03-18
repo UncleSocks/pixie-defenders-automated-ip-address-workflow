@@ -11,7 +11,7 @@ def arguments():
     argument_parser.add_argument("-n", "--netstat", action="store_true", help="Uses 'netstat -n' to capture public IP addresses communicating with the host.")
     argument_parser.add_argument("-i", "--ioc", help="[Optional] Specify the location of the text file containing the blacklist. If not specified Pixie will use the Cisco Talos Intelligence blacklist.")
     argument_parser.add_argument("-o", "--output", help="[Optional] Specify the filename for the CSV file with the .csv extension.")
-    argument_parser.add_argument("-s", "--source", help="Specify IP address lookup OSINT source (currently supports IPInfo and IBM X-Force)")
+    argument_parser.add_argument("-s", "--source", help="Specify IP address lookup OSINT source. Use i for IPInfo and x for IBM X-Force")
     argument = argument_parser.parse_args()
 
     return argument

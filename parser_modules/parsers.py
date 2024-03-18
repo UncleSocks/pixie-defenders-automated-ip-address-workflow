@@ -158,7 +158,7 @@ def organization_parser(processed_ip_list, organization_keyword):
             organization_keyword_counter += 1
     
     else:
-        print("ERROR! Use the '-h' for information on how to use the tool.")
+        print("ERROR-004 Invalid input. Use the '-h' for information on how to use the tool.")
 
     print("Keyword parsing complete.")
     output_dict = {'Keyword List': organization_keyword_list, 'Keyword Counter':organization_keyword_counter, 'Output List':output_list}
