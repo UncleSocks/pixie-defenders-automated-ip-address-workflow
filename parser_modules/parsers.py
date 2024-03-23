@@ -76,11 +76,14 @@ def xforce_lookup(api_url, api_key, api_pw, ip_list):
             except:
                 country = "NONE"
 
-            subnet = str(data.get('subnets'))
-            organization_match = re.search(r"'company':\s*'(?P<org>.*?)'", subnet, re.IGNORECASE)
-            if organization_match:
-                organization = organization_match.group('org')
-            else:
+            try:
+                subnet = str(data.get('subnets'))
+                organization_match = re.search(r"'company':\s*'(?P<org>.*?)'", subnet, re.IGNORECASE)
+                if organization_match:
+                    organization = organization_match.group('org')
+                else:
+                    organization = "NONE"
+            except:
                 organization = "NONE"
 
             risk_rating = (data.get("score"))
