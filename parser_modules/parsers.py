@@ -149,14 +149,26 @@ def organization_parser(processed_ip_list, organization_keyword, source):
 
             for ip in processed_ip_list:
         
-                ip_address = ip['IP ADDRESS']
-                country = ip['COUNTRY']
-                organization = ip['ORGANIZATION']
-                hostname = ip['HOSTNAME']
+                if source == "ibm_xforce":
+                    ip_address = ip['IP ADDRESS']
+                    country = ip['COUNTRY']
+                    organization = ip['ORGANIZATION']
+                    risk_rating = ip['RISK RATING']
+                    category = ip['CATEGORY']
 
-                if keyword not in organization.lower():
-                    ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
-                    output_list.append(ip_output)
+                    if keyword not in organization.lower():
+                        ip_output = f"{ip_address}[{country}:{organization}:{risk_rating}:{category}]"
+                        output_list.append(ip_output)
+
+                else: 
+                    ip_address = ip['IP ADDRESS']
+                    country = ip['COUNTRY']
+                    organization = ip['ORGANIZATION']
+                    hostname = ip['HOSTNAME']
+
+                    if keyword not in organization.lower():
+                        ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
+                        output_list.append(ip_output)
             
             organization_keyword_counter += 1
     
@@ -166,14 +178,27 @@ def organization_parser(processed_ip_list, organization_keyword, source):
 
             for ip in processed_ip_list:
 
-                ip_address = ip['IP ADDRESS']
-                country = ip['COUNTRY']
-                organization = ip['ORGANIZATION']
-                hostname = ip['HOSTNAME']
+                if source == "ibm_xforce":
+                    ip_address = ip['IP ADDRESS']
+                    country = ip['COUNTRY']
+                    organization = ip['ORGANIZATION']
+                    risk_rating = ip['RISK RATING']
+                    category = ip['CATEGORY']
 
-                if keyword in organization.lower():
-                    ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
-                    output_list.append(ip_output)
+                    if keyword in organization.lower():
+                        ip_output = f"{ip_address}[{country}:{organization}:{risk_rating}:{category}]"
+                        output_list.append(ip_output)
+                
+                else:
+                
+                    ip_address = ip['IP ADDRESS']
+                    country = ip['COUNTRY']
+                    organization = ip['ORGANIZATION']
+                    hostname = ip['HOSTNAME']
+
+                    if keyword in organization.lower():
+                        ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
+                        output_list.append(ip_output)
             
             organization_keyword_counter += 1
     
