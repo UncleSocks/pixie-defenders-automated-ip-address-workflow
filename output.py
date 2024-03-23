@@ -29,11 +29,15 @@ def cli_output(output_list, blacklist_list):
     return print(cli_report)
 
 
-def csv_ouput(parsed_output_list, parsed_blacklist_list, filename):
+def csv_ouput(parsed_output_list, parsed_blacklist_list, filename, source):
 
     with open(f'./reports/{filename}', 'w', newline='') as csv_export:
         csv_writer = csv.writer(csv_export)
-        csv_writer.writerow(['IP ADDRESS', 'COUNTRY', 'ORGANIZATION', 'HOSTNAME'])
+        
+        if source == "ibm_xforce":
+            csv_writer.writerow(['IP ADDRESS', 'COUNTRY', 'ORGANIZATION', 'RISK RATING', 'CATEGORY'])
+        else:
+            csv_writer.writerow(['IP ADDRESS', 'COUNTRY', 'ORGANIZATION', 'HOSTNAME'])
         csv_writer.writerows(parsed_output_list)
         csv_writer.writerow([])
         csv_writer.writerow(['BLACKLIST IPs'])

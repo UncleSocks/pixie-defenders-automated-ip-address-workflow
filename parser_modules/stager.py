@@ -54,25 +54,37 @@ def blacklist_check(output_list, blacklist_file):
         return blacklisted_ips_list
     
 
-def export_parser(output_list):
+def export_parser(output_list, source):
 
     export_list = []
 
     for entry in output_list:
         ip_information_parser = re.search(r'\[(.*?)\]', entry).group(1).split(':')
         
-        ip_address = entry.split("[")[0]
-        country = ip_information_parser[0]
-        organization = ip_information_parser[1]
-        hostname = ip_information_parser[2]
+        if source == "ibm_xforce":
+            ip_address = entry.split("[")[0]
+            country = ip_information_parser[0]
+            organization = ip_information_parser[1]
+            risk_rating = ip_information_parser[2]
+            category = ip_information_parser[3]
 
-        cuurrent_ip_info = [ip_address, country, organization, hostname]
-        export_list.append(cuurrent_ip_info)
+            current_ip_info = [ip_address, country, organization, risk_rating, category]
+
+        else:
+        
+            ip_address = entry.split("[")[0]
+            country = ip_information_parser[0]
+            organization = ip_information_parser[1]
+            hostname = ip_information_parser[2]
+
+            current_ip_info = [ip_address, country, organization, hostname]
+        
+        export_list.append(current_ip_info)
 
     return export_list
 
 
-def export_blacklist_parser(blacklist_list):
+def export_blacklist_parser(blacklist_list, source):
 
     export_blacklist_list = []
 
@@ -81,12 +93,23 @@ def export_blacklist_parser(blacklist_list):
         for entry in blacklist_list:
             ip_information_parser = re.search(r'\[(.*?)\]', entry).group(1).split(':')
 
-            ip_address = entry.split("[")[0]
-            country = ip_information_parser[0]
-            organization = ip_information_parser[1]
-            hostname = ip_information_parser[2]
+            if source == "ibm_xforce":
+                ip_address = entry.split("[")[0]
+                country = ip_information_parser[0]
+                organization = ip_information_parser[1]
+                risk_rating = ip_information_parser[2]
+                category = ip_information_parser[3]
 
-            current_ip_info = [ip_address, country, organization, hostname]
+                current_ip_info = [ip_address, country, organization, risk_rating, category]
+                
+            else: 
+                ip_address = entry.split("[")[0]
+                country = ip_information_parser[0]
+                organization = ip_information_parser[1]
+                hostname = ip_information_parser[2]
+
+                current_ip_info = [ip_address, country, organization, hostname]
+
             export_blacklist_list.append(current_ip_info)
 
     return export_blacklist_list

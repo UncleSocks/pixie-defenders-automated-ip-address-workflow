@@ -9,10 +9,11 @@ def pixie():
     if arguments().source == "i" or arguments().source is None: #Use IPInfo as OSINT source.
         handler = ip_init()
         organization_keywords = organization_keyword()
+        source = "ipinfo"
         if arguments().wordlist and not arguments().netstat and not arguments().ioc:
             ip_list = ip_wordlist(arguments())
             processed_ip_list = ipinfo_lookup(handler, ip_list)
-            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            output_dict = organization_parser(processed_ip_list, organization_keywords, source)
             output_list = staged_output(output_dict)
 
             blacklist_file = False
@@ -22,7 +23,7 @@ def pixie():
         elif arguments().netstat and not arguments().wordlist and not arguments().ioc:
             ip_list =  netstat()
             processed_ip_list = ipinfo_lookup(handler, ip_list)
-            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            output_dict = organization_parser(processed_ip_list, organization_keywords, source)
             output_list = staged_output(output_dict)
             
             blacklist_file = False
@@ -32,7 +33,7 @@ def pixie():
         elif arguments().wordlist and not arguments().netstat and arguments().ioc:
             ip_list = ip_wordlist(arguments())
             processed_ip_list = ipinfo_lookup(handler, ip_list)
-            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            output_dict = organization_parser(processed_ip_list, organization_keywords, source)
             output_list = staged_output(output_dict)
 
             blacklist_file = True
@@ -42,7 +43,7 @@ def pixie():
         elif arguments().netstat and not arguments().wordlist and arguments().ioc:
             ip_list =  netstat()
             processed_ip_list = ipinfo_lookup(handler, ip_list)
-            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            output_dict = organization_parser(processed_ip_list, organization_keywords, source)
             output_list = staged_output(output_dict)
 
             blacklist_file = True
@@ -55,23 +56,24 @@ def pixie():
         if arguments().output:
 
             print("Exporting to a CSV file...")
-            parsed_output_list = export_parser(output_list)
-            parsed_blacklist_list = export_blacklist_parser(blacklist)
+            parsed_output_list = export_parser(output_list, source)
+            parsed_blacklist_list = export_blacklist_parser(blacklist, source)
 
             print(f"CSV file exported as {arguments().output}")
-            csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
+            csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output, source)
 
 
     elif arguments().source == "x": #Use IBM X-Force as OSINT source.
 
         api_url, api_key, api_pw = xforce_init()
-        organization_keywords = organization_keyword()       
+        organization_keywords = organization_keyword()
+        source = "ibm_xforce"       
         
         if arguments().wordlist and not arguments().netstat and not arguments().ioc:
             ip_list = ip_wordlist(arguments())
             processed_ip_list = xforce_lookup(api_url, api_key, api_pw, ip_list)
 
-            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            output_dict = organization_parser(processed_ip_list, organization_keywords, source)
             output_list = staged_output(output_dict)
 
             blacklist_file = False
@@ -82,7 +84,7 @@ def pixie():
             ip_list = netstat()
             processed_ip_list = xforce_lookup(api_url, api_key, api_pw, ip_list)
 
-            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            output_dict = organization_parser(processed_ip_list, organization_keywords, source)
             output_list = staged_output(output_dict)
 
             blacklist_file = False
@@ -94,7 +96,7 @@ def pixie():
             ip_list = ip_wordlist(arguments())
             processed_ip_list = xforce_lookup(api_url, api_key, api_pw, ip_list)
 
-            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            output_dict = organization_parser(processed_ip_list, organization_keywords, source)
             output_list = staged_output(output_dict)
 
             blacklist_file = True
@@ -105,7 +107,7 @@ def pixie():
             ip_list = netstat()
             processed_ip_list = xforce_lookup(api_url, api_key, api_pw, ip_list)
 
-            output_dict = organization_parser(processed_ip_list, organization_keywords)
+            output_dict = organization_parser(processed_ip_list, organization_keywords, source)
             output_list = staged_output(output_dict)
 
             blacklist_file = True
@@ -119,11 +121,11 @@ def pixie():
         if arguments().output:
 
             print("Exporting to a CSV file...")
-            parsed_output_list = export_parser(output_list)
-            parsed_blacklist_list = export_blacklist_parser(blacklist)
+            parsed_output_list = export_parser(output_list, source)
+            parsed_blacklist_list = export_blacklist_parser(blacklist, source)
 
             print(f"CSV file exported as {arguments().output}")
-            csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output)
+            csv_ouput(parsed_output_list, parsed_blacklist_list, arguments().output, source)
 
     else:
         print("ERROR-005: Invalid source argument. Use the '-h' option for more information.")

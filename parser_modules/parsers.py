@@ -68,25 +68,33 @@ def xforce_lookup(api_url, api_key, api_pw, ip_list):
 
         if response.status_code == 200:
             data = response.json()
-            history = str(data.get("history"))
 
-            ip_address = str(data.get('ip'))
+            ip_address = data.get('ip')
 
-            country_match = re.search(r"'countrycode':\s*'(?P<country>.*?)'", history, re.IGNORECASE)
-            if country_match:
-                country = country_match.group('country')
-            else:
+            try:
+                country = data.get('geo')['country']
+            except:
                 country = "NONE"
 
-            organization_match = re.search(r"'company':\s*'(?P<org>.*?)'", history, re.IGNORECASE)
+            subnet = str(data.get('subnets'))
+            organization_match = re.search(r"'company':\s*'(?P<org>.*?)'", subnet, re.IGNORECASE)
             if organization_match:
                 organization = organization_match.group('org')
             else:
                 organization = "NONE"
 
-            hostname = "NOT APPLICABLE"
+            risk_rating = (data.get("score"))
+
+            category_raw = data.get('cats')
+            if category_raw:
+                category_key = str(list(category_raw.keys())[0])
+                category_value = category_raw[category_key]
+                category = f"{category_key} - {category_value}"
+            else:
+                category = "UNCATEGORIZED"
             
-            processed_ip = {'IP ADDRESS':str(ip_address), 'COUNTRY':str(country), 'ORGANIZATION':str(organization), 'HOSTNAME':str(hostname)}
+            processed_ip = {'IP ADDRESS':str(ip_address), 'COUNTRY':str(country).upper(), 'ORGANIZATION':str(organization), 
+                            'RISK RATING':str(risk_rating), 'CATEGORY':category.upper()}
             processed_ip_list.append(processed_ip)
 
         else:
@@ -101,7 +109,7 @@ def xforce_lookup(api_url, api_key, api_pw, ip_list):
     return processed_ip_list
 
 
-def organization_parser(processed_ip_list, organization_keyword):
+def organization_parser(processed_ip_list, organization_keyword, source):
 
     print("Performing keyword parsing...")
 
@@ -113,14 +121,26 @@ def organization_parser(processed_ip_list, organization_keyword):
 
         for ip in processed_ip_list:
 
-            ip_address = ip['IP ADDRESS']
-            country = ip['COUNTRY']
-            organization = ip['ORGANIZATION']
-            hostname = ip['HOSTNAME']
+            if source == "ibm_xforce":
 
-            ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
+                ip_address = ip['IP ADDRESS']
+                country = ip['COUNTRY']
+                organization = ip['ORGANIZATION']
+                risk_rating = ip['RISK RATING']
+                category = ip['CATEGORY']
+
+                ip_output = f"{ip_address}[{country}:{organization}:{risk_rating}:{category}]"
+
+            else:
+                ip_address = ip['IP ADDRESS']
+                country = ip['COUNTRY']
+                organization = ip['ORGANIZATION']
+                hostname = ip['HOSTNAME']
+
+                ip_output = f"{ip_address}[{country}:{organization}:{hostname}]"
+                
             output_list.append(ip_output)
-        
+
         organization_keyword_counter += 1
 
     elif organization_keyword_list[0] == "not":
