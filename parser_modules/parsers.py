@@ -94,7 +94,7 @@ def xforce_lookup(api_url, api_key, api_pw, ip_list):
                 category_value = category_raw[category_key]
                 category = f"{category_key} - {category_value}"
             else:
-                category = "UNCATEGORIZED"
+                category = "UNSUSPICIOUS"
             
             processed_ip = {'IP ADDRESS':str(ip_address), 'COUNTRY':str(country).upper(), 'ORGANIZATION':str(organization), 
                             'RISK RATING':str(risk_rating), 'CATEGORY':category.upper()}
