@@ -112,7 +112,7 @@ def xforce_connect():
     api_url = "https://api.xforce.ibmcloud.com/"
 
     with open("auth.txt") as auth:
-        auth_parser = auth.read().split(':')
+        auth_parser = auth.read().strip().split(':')
         api_key = auth_parser[0]
         api_pw = auth_parser[1]
 
