@@ -82,7 +82,12 @@ def abuse_ip_lookup(api_key, ip_list):
         except:
             country_code = "NONE"
             country_name = "NONE"
-        
+
+        try:
+            domain = decodedResponse['data']['domain']
+        except:
+            domain = "NONE"
+
         try:
             isp = decodedResponse['data']['isp']
         except:
@@ -91,8 +96,9 @@ def abuse_ip_lookup(api_key, ip_list):
         abuseScoreRaw = decodedResponse['data']['abuseConfidenceScore']
         abuseScore = str(abuseScoreRaw) + "%"
         totalReports = decodedResponse['data']['totalReports']
+        last_reported_at = decodedResponse['data']['lastReportedAt']
 
-        processed_ip = [str(ipAddress), str(country_code), str(country_name), str(isp), str(abuseScore), str(totalReports)]
+        processed_ip = [str(ipAddress), str(country_code), str(country_name), str(domain), str(abuseScore), str(totalReports), str(isp), str(last_reported_at)]
         processed_ip_list.append(processed_ip)
 
         print(f"\rProcessing {index}/{total_ips} IP addresses", end="", flush=True)
@@ -108,7 +114,7 @@ def csv_output(processed_ip_list):
     
     with open(f'./output.csv', 'w', newline='') as csv_export:
         csv_writer = csv.writer(csv_export)
-        csv_writer.writerow(['IP ADDRESS', 'COUNTRY CODE', 'COUNTRY NAME', 'ISP', 'ABUSE SCORE', 'TOTAL REPORTS'])
+        csv_writer.writerow(['IP ADDRESS', 'COUNTRY CODE', 'COUNTRY NAME', 'DOMAIN','ABUSE SCORE', 'TOTAL REPORTS', 'ISP', 'LAST REPORTED AT'])
         csv_writer.writerows(processed_ip_list)
 
     print("Successfully exported to a CSV file.")
