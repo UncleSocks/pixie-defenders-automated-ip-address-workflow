@@ -3,6 +3,7 @@ import time
 import requests
 import json
 import csv
+import keyboard
 
 class PixieAbuseIPDB:
     
@@ -60,6 +61,7 @@ class PixieAbuseIPDB:
         print("Performing AbuseIPDB lookup...")
 
         processed_ip_list = []
+        raw_processed_ip_list = []
         total_ips = len(self.ip_list)
         start_time = time.time()
         url = 'https://api.abuseipdb.com/api/v2/check'
@@ -105,22 +107,28 @@ class PixieAbuseIPDB:
             processed_ip = [str(ipAddress), str(country_code), str(country_name), str(domain), str(abuseScore), str(totalReports), str(isp), str(last_reported_at)]
             processed_ip_list.append(processed_ip)
 
+            raw_processed_ip = f"{ipAddress}[{country_name}:{isp}:{domain}]"
+            raw_processed_ip_list.append(raw_processed_ip)
+
             print(f"\rProcessing {index}/{total_ips} IP addresses", end="", flush=True)
 
         end_time = time.time()
         elapsed_time = end_time - start_time
         print(f"\nLookup complete. Elapsed time: {elapsed_time:.2f} seconds.\n")
 
-        return self.csv_output(processed_ip_list)
+        return self.output(raw_processed_ip_list, processed_ip_list)
     
     
-    def csv_output(self, processed_ip_list):
+    def output(self, raw_processed_ip_list, processed_ip_list):
         with open(f'./output.csv', 'w', newline='') as csv_export:
             csv_writer = csv.writer(csv_export)
             csv_writer.writerow(['IP ADDRESS', 'COUNTRY CODE', 'COUNTRY NAME', 'DOMAIN','ABUSE SCORE', 'TOTAL REPORTS', 'ISP', 'LAST REPORTED AT'])
             csv_writer.writerows(processed_ip_list)
 
-        print("Successfully exported to a CSV file.")
+        for raw_ip in raw_processed_ip_list:
+            print(raw_ip)
+        
+        print("\nSuccessfully exported to a CSV file.")
         return
 
     @staticmethod
@@ -398,9 +406,17 @@ class PixieAbuseIPDB:
         else:
             country_name = "Country Code Not Found"
         return country_name
+    
+def completed_pause():
+    print("Press enter or the space bar to continue...")
+    wait = True
+    while wait:
+        if keyboard.read_key() == 'space' or keyboard.read_key() == 'enter':
+            wait = False
+            break
 
 
 if __name__ == "__main__":
     PixieAbuseIPDB().abuse_ip_lookup()
-    print("Done")
-    time.sleep(5)
+    print("\nDone")
+    completed_pause()
