@@ -5,43 +5,59 @@ import json
 import csv
 import keyboard
 
-class PixieAbuseIPDB:
+
+class AbuseIpDbApiCheck:
+
+    def __init__(self, abuse_api_file='api.txt'):
+
+        self.abuse_api_file = abuse_api_file
+
     
-    def __init__(self, api_key_file='api.txt', ip_wordlist_file='ip.txt'):
-        
-        self.banner()
-        self.api_key_file = api_key_file
-        self.api_key = self.api_process()
+    def abuse_api_file_check(self):
+        with open(self.abuse_api_file) as abuse_api:
+            abuse_api_key = abuse_api.read().strip()
+
+            if not abuse_api_key:
+                print("Abuse IP DB API key is not present.")
+                return False
+            
+            else:
+                return self.abuse_api_connect_check(abuse_api_key)
+            
+
+    def abuse_api_connect_check(self, abuse_api_key):
+
+        print("Checking API key connection to Abuse IP DB...")
+
+        url = 'https://api.abuseipdb.com/api/v2/check'
+        connection_check_query = {'ipAddress':'8.8.8.8'}
+        headers = {
+            'Accept': 'application/json',
+            'Key': abuse_api_key
+        }
+
+        response = requests.request(method="GET", url=url, headers=headers, params=connection_check_query)
+
+        if response.status_code == 200:
+            print("Abuse IP DB connection check complete.")
+            return abuse_api_key
+        else:
+            print(f"Failed to connect to Abuse IP DB. Check your API key.")
+            print(f"Status Code: {response.status_code}, Error: {response.text}")
+            return False
+
+
+class PixieAbuseIPDB():
+    
+    def __init__(self, ip_wordlist_file='ip.txt'):
         
         self.ip_wordlist_file = ip_wordlist_file
         self.ip_list = self.wordlist_process()
 
 
-    @staticmethod
-    def banner():
-        banner = """
-        ____  _      _      
-        |  _ \(_)_  _(_) ___ 
-        | |_) | \ \/ / |/ _ \\
-        |  __/| |>  <| |  __/
-        |_|   |_/_/\_\_|\___|lite
-        AbuseIPDB Reputation
-
-        """
-
-        return print(banner)
-    
-
     def public_address_parser(self, ip_address):
         private_match = re.compile(r'((^127\.)|(^192\.168\.)|(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^::1$)|(^[fF][cCdD])/)|([a-zA-Z])').match(ip_address)
         return private_match
-    
-
-    def api_process(self):
-        with open(self.api_key_file) as api:
-            api_key = api.read().strip()
-
-        return api_key
     
 
     def wordlist_process(self):
@@ -51,13 +67,12 @@ class PixieAbuseIPDB:
         with open(self.ip_wordlist_file) as ip_wordlist:
             for ip in ip_wordlist:
                 ip = ip.strip()
-                if not self.public_address_parser(ip):
-                    ip_list.append(ip)
+                ip_list.append(ip)
 
         return ip_list
     
 
-    def abuse_ip_lookup(self):
+    def abuse_ip_lookup(self, api_key):
         print("Performing AbuseIPDB lookup...")
 
         processed_ip_list = []
@@ -67,7 +82,7 @@ class PixieAbuseIPDB:
         url = 'https://api.abuseipdb.com/api/v2/check'
         headers = {
             'Accept':'application/json',
-            'Key':self.api_key
+            'Key': api_key
         }
 
         for index, ip in enumerate(self.ip_list, start=1):
@@ -77,37 +92,54 @@ class PixieAbuseIPDB:
                 'maxAgeInDays':'30'
             }
 
-            response = requests.request(method='GET', url=url, headers=headers, params=querystring)
-            decodedResponse = json.loads(response.text)
+            if not self.public_address_parser(ip):
 
-            ipAddress = decodedResponse['data']['ipAddress']
+                response = requests.request(method='GET', url=url, headers=headers, params=querystring)
+                decodedResponse = json.loads(response.text)
 
-            try:
-                country_code = decodedResponse['data']['countryCode']
-                country_name = self.country_code_converter(country_code)
-            except:
-                country_code = "NONE"
-                country_name = "NONE"
+                ipAddress = decodedResponse['data']['ipAddress']
 
-            try:
-                domain = decodedResponse['data']['domain']
-            except:
-                domain = "NONE"
+                try:
+                    country_code = decodedResponse['data']['countryCode']
+                    country_name = self.country_code_converter(country_code)
+                except:
+                    country_code = "NONE"
+                    country_name = "NONE"
 
-            try:
-                isp = decodedResponse['data']['isp']
-            except:
-                isp = "NONE"
+                hostnames = ", ".join(decodedResponse['data']['hostnames'])
+                if not hostnames: 
+                    hostnames = "NONE"
 
-            abuseScoreRaw = decodedResponse['data']['abuseConfidenceScore']
-            abuseScore = str(abuseScoreRaw) + "%"
-            totalReports = decodedResponse['data']['totalReports']
-            last_reported_at = decodedResponse['data']['lastReportedAt']
+                try:
+                    domain = decodedResponse['data']['domain']
+                except:
+                    domain = "NONE"
 
-            processed_ip = [str(ipAddress), str(country_code), str(country_name), str(domain), str(abuseScore), str(totalReports), str(isp), str(last_reported_at)]
+                try:
+                    isp = decodedResponse['data']['isp']
+                except:
+                    isp = "NONE"
+
+                abuseScoreRaw = decodedResponse['data']['abuseConfidenceScore']
+                abuseScore = str(abuseScoreRaw) + "%"
+                totalReports = decodedResponse['data']['totalReports']
+                last_reported_at = decodedResponse['data']['lastReportedAt']
+
+            else:
+                ipAddress = ip
+                country_code = "PRIVATE"
+                country_name = "PRIVATE"
+                hostnames = "NOT APPLICABLE"
+                domain = "NOT APPLICABLE"
+                abuseScore = "NOT APPLICABLE"
+                totalReports = "NOT APPLICABLE"
+                isp = "NOT APPLICABLE"
+                last_reported_at = "NOT APPLICABLE"
+
+            processed_ip = [str(ipAddress), str(country_code), str(country_name), str(hostnames), str(domain), str(abuseScore), str(totalReports), str(isp), str(last_reported_at)]
             processed_ip_list.append(processed_ip)
 
-            raw_processed_ip = f"{ipAddress}[{country_name}:{isp}:{domain}]"
+            raw_processed_ip = f"{ipAddress}[{country_name}:{isp}:{hostnames}:{domain}]"
             raw_processed_ip_list.append(raw_processed_ip)
 
             print(f"\rProcessing {index}/{total_ips} IP addresses", end="", flush=True)
@@ -122,9 +154,10 @@ class PixieAbuseIPDB:
     def output(self, raw_processed_ip_list, processed_ip_list):
         with open(f'./output.csv', 'w', newline='') as csv_export:
             csv_writer = csv.writer(csv_export)
-            csv_writer.writerow(['IP ADDRESS', 'COUNTRY CODE', 'COUNTRY NAME', 'DOMAIN','ABUSE SCORE', 'TOTAL REPORTS', 'ISP', 'LAST REPORTED AT'])
+            csv_writer.writerow(['IP ADDRESS', 'COUNTRY CODE', 'COUNTRY NAME', 'HOSTNAME', 'DOMAIN','ABUSE SCORE', 'TOTAL REPORTS', 'ISP', 'LAST REPORTED AT'])
             csv_writer.writerows(processed_ip_list)
 
+        print("IP ADDRESS[COUNTRY:ISP:HOSTNAME:DOMAIN]\n")
         for raw_ip in raw_processed_ip_list:
             print(raw_ip)
         
@@ -416,7 +449,26 @@ def completed_pause():
             break
 
 
+def banner():
+    banner = """
+    ____  _      _      
+    |  _ \(_)_  _(_) ___ 
+    | |_) | \ \/ / |/ _ \\
+    |  __/| |>  <| |  __/
+    |_|   |_/_/\_\_|\___|lite
+    AbuseIPDB Reputation
+
+    """
+
+    return print(banner)
+    
+
 if __name__ == "__main__":
-    PixieAbuseIPDB().abuse_ip_lookup()
-    print("\nDone")
-    completed_pause()
+    banner()
+    
+    api_key = AbuseIpDbApiCheck().abuse_api_file_check()
+
+    if api_key:
+        PixieAbuseIPDB().abuse_ip_lookup(api_key)
+        print("\nDone")
+        completed_pause()
