@@ -1,0 +1,7 @@
+﻿"IP Address","Country Code","ISP","Abuse Confidence Score (%)","Total Reports","Last Reported At"
+"1.1.1.1","AU","APNIC and Cloudflare DNS Resolver project","0","57","2024-11-16T09:00:52+00:00"
+"8.8.8.8","US","Google LLC","0","45","2024-11-17T14:49:50+00:00"
+"4.4.4.4","ID","Level 3 Parent, LLC","0","0","2024-07-10T23:58:56+00:00"
+"89.21.88.3","UA","EXPRESS Radio Network","0","0",
+"185.94.111.1","RU","HLL LLC","100","11860","2024-11-18T11:57:42+00:00"
+"192.168.1.1","N/A","PRIVATE","N/A","N/A","N/A"
