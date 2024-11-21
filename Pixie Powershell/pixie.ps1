@@ -6,10 +6,6 @@ param([string]$ApiKey,
 
 
 Function AbuseIpLookup {
-    param([string]$Api, 
-          [string]$FilePath, 
-          [string]$OutputPath
-    )
 
     $processedIpArray = @()
     $fileContent = Get-Content -Path $FilePath
@@ -34,7 +30,7 @@ Function AbuseIpLookup {
         }
 
         $lookup = Invoke-RestMethod @Params
-        $lookupParsed = $lookup | ConvertTo-Json
+        $lookupParsed = $lookup | ConvertTo-Json #Formatted JSON for testing.
 
         $ipAddress = $lookup.data.ipAddress
         $isPublic = $lookup.data.isPublic
@@ -76,6 +72,7 @@ Function AbuseIpLookup {
             'IP Address' = $ipAddress
             'Country Code' = $countryCode
             'ISP' = $isp
+            'Domain' = $domain
             'Abuse Confidence Score (%)' = $abuseConfidenceScore
             'Total Reports' = $totalReports
             'Last Reported At' = $lastReportedAt
